@@ -11,6 +11,7 @@ from genetics_api.db import connect
 
 def get_observation_locations(taxon_id):
     locations = []
+    printed = False
 
     for page in itertools.count(1):
         page_result = requests.get(
@@ -20,6 +21,10 @@ def get_observation_locations(taxon_id):
         if page_result.status_code != 200:
             print(page_result, file=sys.stderr)
             break
+
+        if not printed:
+            print('Total: ', page_result.headers['X-Total-Entries'])
+            printed = True
 
         observations = page_result.json()
         if not observations:
