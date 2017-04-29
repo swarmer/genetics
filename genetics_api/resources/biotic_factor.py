@@ -9,11 +9,31 @@ from genetics_api.db import connect
 
 class BioticFactorResource(object):
     def on_get(self, req, resp):
+        taxon1_id = req.get_param_as_int('taxon1_id')
+        taxon2_id = req.get_param_as_int('taxon2_id')
+
         with connect() as connection, connection.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
-            cursor.execute('''
-                SELECT id, name, marker_name, taxon1_id, taxon2_id
-                FROM biotic_factors;
-            ''')
+            if taxon1_id and taxon2_id:
+                condition = '''
+                    (taxon1_id = %(taxon1_id)s AND taxon2_id = %(taxon2_id)s) OR
+                    (taxon2_id = %(taxon1_id)s AND taxon1_id = %(taxon2_id)s)
+                '''
+                params = {
+                    'taxon1_id': taxon1_id,
+                    'taxon2_id': taxon2_id,
+                }
+            else:
+                condition = '(TRUE)'
+                params = {}
+
+            cursor.execute(
+                '''
+                    SELECT id, name, marker_name, taxon1_id, taxon2_id
+                    FROM biotic_factors
+                    WHERE {condition};
+                '''.format(condition=condition),
+                params,
+            )
             result = [self._serialize_row(row) for row in cursor.fetchall()]
 
             set_json_response(resp, result)
