@@ -19,5 +19,5 @@ RUN pip3 install -Ur /genetics-api/requirements.txt
 
 # Container settings
 WORKDIR /genetics-api
-EXPOSE 80
-CMD gunicorn genetics_api.app -b 0.0.0.0:80
+EXPOSE 8179
+CMD gunicorn genetics_api.app -b 0.0.0.0:8179
