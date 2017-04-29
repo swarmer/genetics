@@ -7,11 +7,24 @@ from genetics_api.db import connect
 
 class TaxonResource(object):
     def on_get(self, req, resp):
+        search = req.get_param('search')
+
         with connect() as connection, connection.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
-            cursor.execute('''
-                SELECT id, english_name, latin_name, thumbnail_url
-                FROM taxons;
-            ''')
+            if search:
+                pattern = '%{}%'.format(search)
+                condition = '(english_name ILIKE %(pattern)s OR latin_name ILIKE %(pattern)s)'
+            else:
+                pattern = None
+                condition = '(TRUE)'
+
+            cursor.execute(
+                '''
+                    SELECT id, english_name, latin_name, thumbnail_url
+                    FROM taxons
+                    WHERE {condition};
+                '''.format(condition=condition),
+                {'pattern': pattern},
+            )
             result = {row['id']: self._serialize_row(row) for row in cursor.fetchall()}
             for taxon_data in result.values():
                 taxon_data['observations'] = []
@@ -27,6 +40,9 @@ class TaxonResource(object):
             set_json_response(resp, result)
 
     def get_observations(self, cursor, taxon_ids):
+        if not taxon_ids:
+            return []
+
         cursor.execute(
             '''
                 SELECT taxon_id, latitude, longitude
