@@ -11,16 +11,16 @@
 
   <body>
 
-  <div class="row white" style="margin-bottom: 0px;">
+  <div id="navbar" class="row white" style="margin-bottom: 0px;">
           <form class="col s10 offset-s1">
               <!--<h3 class="col s12 light center-align">Enter two spieces</h3>-->
               <div class="input-field col s12 l5">
                   <label for="firstSpiece">Spiece One</label>
-                  <input class="autocomplete-content" id="firstSpiece" type="text"/>
+                  <input oninput="search(this.value, 'firstSpiece')" class="autocomplete" id="firstSpiece" type="text"/>
               </div>
               <div class="input-field col s12 l5">
                   <label for="secondSpiece">Spiece One</label>
-                  <input id="secondSpiece" type="text"/>
+                  <input oninput="search(this.value, 'secondSpiece')" id="secondSpiece" type="text"/>
               </div>
               <div class="col s12 l2" style="padding: 15px;">
                 <button class="btn waves-effect waves-light" type="submit" name="action">
