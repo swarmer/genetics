@@ -5,7 +5,7 @@
 -- Dumped from database version 9.6.2
 -- Dumped by pg_dump version 9.6.2
 
--- Started on 2017-04-29 23:22:44 +03
+-- Started on 2017-04-30 00:46:16 +03
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -25,7 +25,7 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- TOC entry 2408 (class 0 OID 0)
+-- TOC entry 2422 (class 0 OID 0)
 -- Dependencies: 1
 -- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
 --
@@ -38,6 +38,46 @@ SET search_path = public, pg_catalog;
 SET default_tablespace = '';
 
 SET default_with_oids = false;
+
+--
+-- TOC entry 190 (class 1259 OID 16413)
+-- Name: biotic_factors; Type: TABLE; Schema: public; Owner: genetics-api
+--
+
+CREATE TABLE biotic_factors (
+    id integer NOT NULL,
+    name text,
+    marker_name text,
+    taxon1_id integer NOT NULL,
+    taxon2_id integer NOT NULL
+);
+
+
+ALTER TABLE biotic_factors OWNER TO "genetics-api";
+
+--
+-- TOC entry 189 (class 1259 OID 16411)
+-- Name: biotic_factors_id_seq; Type: SEQUENCE; Schema: public; Owner: genetics-api
+--
+
+CREATE SEQUENCE biotic_factors_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE biotic_factors_id_seq OWNER TO "genetics-api";
+
+--
+-- TOC entry 2423 (class 0 OID 0)
+-- Dependencies: 189
+-- Name: biotic_factors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genetics-api
+--
+
+ALTER SEQUENCE biotic_factors_id_seq OWNED BY biotic_factors.id;
+
 
 --
 -- TOC entry 188 (class 1259 OID 16400)
@@ -70,7 +110,7 @@ CREATE SEQUENCE observations_id_seq
 ALTER TABLE observations_id_seq OWNER TO "genetics-api";
 
 --
--- TOC entry 2409 (class 0 OID 0)
+-- TOC entry 2424 (class 0 OID 0)
 -- Dependencies: 187
 -- Name: observations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genetics-api
 --
@@ -109,7 +149,7 @@ CREATE SEQUENCE taxons_id_seq
 ALTER TABLE taxons_id_seq OWNER TO "genetics-api";
 
 --
--- TOC entry 2410 (class 0 OID 0)
+-- TOC entry 2425 (class 0 OID 0)
 -- Dependencies: 185
 -- Name: taxons_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genetics-api
 --
@@ -118,7 +158,15 @@ ALTER SEQUENCE taxons_id_seq OWNED BY taxons.id;
 
 
 --
--- TOC entry 2275 (class 2604 OID 16403)
+-- TOC entry 2283 (class 2604 OID 16416)
+-- Name: biotic_factors id; Type: DEFAULT; Schema: public; Owner: genetics-api
+--
+
+ALTER TABLE ONLY biotic_factors ALTER COLUMN id SET DEFAULT nextval('biotic_factors_id_seq'::regclass);
+
+
+--
+-- TOC entry 2282 (class 2604 OID 16403)
 -- Name: observations id; Type: DEFAULT; Schema: public; Owner: genetics-api
 --
 
@@ -126,7 +174,7 @@ ALTER TABLE ONLY observations ALTER COLUMN id SET DEFAULT nextval('observations_
 
 
 --
--- TOC entry 2274 (class 2604 OID 16392)
+-- TOC entry 2281 (class 2604 OID 16392)
 -- Name: taxons id; Type: DEFAULT; Schema: public; Owner: genetics-api
 --
 
@@ -134,7 +182,29 @@ ALTER TABLE ONLY taxons ALTER COLUMN id SET DEFAULT nextval('taxons_id_seq'::reg
 
 
 --
--- TOC entry 2401 (class 0 OID 16400)
+-- TOC entry 2415 (class 0 OID 16413)
+-- Dependencies: 190
+-- Data for Name: biotic_factors; Type: TABLE DATA; Schema: public; Owner: genetics-api
+--
+
+COPY biotic_factors (id, name, marker_name, taxon1_id, taxon2_id) FROM stdin;
+1	Cold	\N	1	2
+2	Trump Wall	\N	1	2
+5	IDK	Ace3	1	2
+\.
+
+
+--
+-- TOC entry 2426 (class 0 OID 0)
+-- Dependencies: 189
+-- Name: biotic_factors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genetics-api
+--
+
+SELECT pg_catalog.setval('biotic_factors_id_seq', 5, true);
+
+
+--
+-- TOC entry 2413 (class 0 OID 16400)
 -- Dependencies: 188
 -- Data for Name: observations; Type: TABLE DATA; Schema: public; Owner: genetics-api
 --
@@ -3101,7 +3171,7 @@ COPY observations (id, taxon_id, latitude, longitude) FROM stdin;
 
 
 --
--- TOC entry 2411 (class 0 OID 0)
+-- TOC entry 2427 (class 0 OID 0)
 -- Dependencies: 187
 -- Name: observations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genetics-api
 --
@@ -3110,7 +3180,7 @@ SELECT pg_catalog.setval('observations_id_seq', 3000, true);
 
 
 --
--- TOC entry 2399 (class 0 OID 16389)
+-- TOC entry 2411 (class 0 OID 16389)
 -- Dependencies: 186
 -- Data for Name: taxons; Type: TABLE DATA; Schema: public; Owner: genetics-api
 --
@@ -3122,7 +3192,7 @@ COPY taxons (id, english_name, latin_name, thumbnail_url) FROM stdin;
 
 
 --
--- TOC entry 2412 (class 0 OID 0)
+-- TOC entry 2428 (class 0 OID 0)
 -- Dependencies: 185
 -- Name: taxons_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genetics-api
 --
@@ -3131,7 +3201,16 @@ SELECT pg_catalog.setval('taxons_id_seq', 2, true);
 
 
 --
--- TOC entry 2279 (class 2606 OID 16405)
+-- TOC entry 2289 (class 2606 OID 16421)
+-- Name: biotic_factors biotic_factors_pkey; Type: CONSTRAINT; Schema: public; Owner: genetics-api
+--
+
+ALTER TABLE ONLY biotic_factors
+    ADD CONSTRAINT biotic_factors_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2287 (class 2606 OID 16405)
 -- Name: observations observations_pkey; Type: CONSTRAINT; Schema: public; Owner: genetics-api
 --
 
@@ -3140,7 +3219,7 @@ ALTER TABLE ONLY observations
 
 
 --
--- TOC entry 2277 (class 2606 OID 16397)
+-- TOC entry 2285 (class 2606 OID 16397)
 -- Name: taxons taxons_pkey; Type: CONSTRAINT; Schema: public; Owner: genetics-api
 --
 
@@ -3149,7 +3228,25 @@ ALTER TABLE ONLY taxons
 
 
 --
--- TOC entry 2280 (class 2606 OID 16406)
+-- TOC entry 2291 (class 2606 OID 16422)
+-- Name: biotic_factors biotic_factors___taxon1_id__fk; Type: FK CONSTRAINT; Schema: public; Owner: genetics-api
+--
+
+ALTER TABLE ONLY biotic_factors
+    ADD CONSTRAINT biotic_factors___taxon1_id__fk FOREIGN KEY (taxon1_id) REFERENCES taxons(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 2292 (class 2606 OID 16427)
+-- Name: biotic_factors biotic_factors___taxon2_id__fk; Type: FK CONSTRAINT; Schema: public; Owner: genetics-api
+--
+
+ALTER TABLE ONLY biotic_factors
+    ADD CONSTRAINT biotic_factors___taxon2_id__fk FOREIGN KEY (taxon2_id) REFERENCES taxons(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- TOC entry 2290 (class 2606 OID 16406)
 -- Name: observations observations___taxon_id__fk; Type: FK CONSTRAINT; Schema: public; Owner: genetics-api
 --
 
@@ -3157,7 +3254,7 @@ ALTER TABLE ONLY observations
     ADD CONSTRAINT observations___taxon_id__fk FOREIGN KEY (taxon_id) REFERENCES taxons(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
--- Completed on 2017-04-29 23:22:45 +03
+-- Completed on 2017-04-30 00:46:16 +03
 
 --
 -- PostgreSQL database dump complete
