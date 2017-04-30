@@ -23,7 +23,8 @@ function search(val, spiece) {
                 size = 6;
             for (var i=0; i<size; i++){
                 //inn += '<li>' + jsn[i]['english_name'] + '</li>';
-                inn += '<li class="collection-item searchItem" onclick="selectItem(this,' + spiece + ')">' + jsn[i]['english_name'] + '</li>';
+                inn += '<li class="collection-item searchItem" onclick="selectItem(this,' + spiece + ')">' + jsn[i]['english_name']
+                    + '</li>';
             }
             document.getElementById('ul'+spiece).innerHTML = inn;
         }
@@ -35,13 +36,17 @@ function search(val, spiece) {
     }
 }
 
+
 function clearUl(spiece) {
-    // document.getElementById(spiece).value = '';
-    // document.getElementById('ul'+spiece).innerHTML = '';
-    // document.getElementById('ul'+spiece).setAttribute('class', '');
+            // document.getElementById(spiece).value = '';
+            // document.getElementById('ul'+spiece).innerHTML = '';
+            // document.getElementById('ul'+spiece).setAttribute('class', '');
+
 }
 
 function selectItem(item, spiece) {
-    console.log(item);
-    document.getElementById(spiece.id).value = item.value;
+    document.getElementById(spiece.id).value = item.innerHTML;
+    //document.getElementById(spiece.id).value = '';
+    document.getElementById('ul'+spiece.id).innerHTML = '';
+    document.getElementById('ul'+spiece.id).setAttribute('class', '');
 }
