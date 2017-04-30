@@ -1,4 +1,6 @@
 var factorsApp = null;
+var animalApp1 = null;
+var animalApp2 = null;
 
 
 function search(val, spiece) {
@@ -135,12 +137,29 @@ function getAnimalInfo(id1, bol) {
         text = this.responseText;
         jsn = JSON.parse(text);
 
-        var animalApp = new Vue({
-            el: val,
-            data: {
-                taxon: jsn,
+        if (bol) {
+            if (animalApp1 == null) {
+                animalApp1 = new Vue({
+                    el: val,
+                    data: {
+                        taxon: jsn,
+                    }
+                });
+            } else {
+                animalApp1.taxon = jsn;
             }
-        });
+        } else {
+            if (animalApp2 == null) {
+                animalApp2 = new Vue({
+                    el: val,
+                    data: {
+                        taxon: jsn,
+                    }
+                });
+            } else {
+                animalApp2.taxon = jsn;
+            }
+        }
     }
 
     xhr.onerror = function() {
