@@ -25,7 +25,7 @@ class TaxonResource(object):
 
             cursor.execute(
                 '''
-                    SELECT id, english_name, latin_name, thumbnail_url
+                    SELECT id, english_name, latin_name, thumbnail_url, taxonomy
                     FROM taxons
                     WHERE {search_condition} AND {filter_condition};
                 '''.format(search_condition=search_condition, filter_condition=filter_condition),
