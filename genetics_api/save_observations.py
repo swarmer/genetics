@@ -3,11 +3,15 @@ import itertools
 import json
 import sys
 
+import psycopg2.extras
 import requests
+
+from genetics_api.db import connect
 
 
 def get_observation_locations(taxon_id):
     locations = []
+    printed = False
 
     for page in itertools.count(1):
         page_result = requests.get(
@@ -18,11 +22,18 @@ def get_observation_locations(taxon_id):
             print(page_result, file=sys.stderr)
             break
 
+        if not printed:
+            print('Total: ', page_result.headers['X-Total-Entries'])
+            printed = True
+
         observations = page_result.json()
         if not observations:
             break
 
         for observation in observations:
+            if not observation['latitude'] or not observation['longitude']:
+                continue
+
             locations.append({
                 'latitude': observation['latitude'],
                 'longitude': observation['longitude'],
@@ -35,8 +46,20 @@ def get_observation_locations(taxon_id):
 
 def main():
     taxon_id = int(sys.argv[1])
+    own_taxon_id = int(sys.argv[2])
     locations = get_observation_locations(taxon_id)
-    print(json.dumps(locations, indent=4, sort_keys=True))
+
+    for location in locations:
+        location['taxon_id'] = own_taxon_id
+
+    with connect() as connection, connection.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
+        cursor.executemany(
+            '''
+                INSERT INTO observations (taxon_id, latitude, longitude) VALUES
+                (%(taxon_id)s, %(latitude)s, %(longitude)s);
+            ''',
+            locations,
+        )
 
 
 if __name__ == '__main__':
