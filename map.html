@@ -40,12 +40,36 @@
                 <div v-cloak id="tax1" class="col s6">
                     <h4 class="col s12">{{ taxon.english_name }}</h4>
                     <h5 class="col s12">{{ taxon.latin_name }}</h5>
+
                     <img :src="taxon.thumbnail_url">
+
+                    <p>
+                        <h3>Classification</h3>
+                        <h6 v-if="taxon.taxonomy.kingdom">Kingdom: {{ taxon.taxonomy.kingdom }}</h6>
+                        <h6 v-if="taxon.taxonomy.phylum">Phylum: {{ taxon.taxonomy.phylum }}</h6>
+                        <h6 v-if="taxon.taxonomy.subphylum">Subphylum: {{ taxon.taxonomy.subphylum }}</h6>
+                        <h6 v-if="taxon.taxonomy.class">Class: {{ taxon.taxonomy.class }}</h6>
+                        <h6 v-if="taxon.taxonomy.order">Order: {{ taxon.taxonomy.order }}</h6>
+                        <h6 v-if="taxon.taxonomy.family">Family: {{ taxon.taxonomy.family }}</h6>
+                        <h6 v-if="taxon.taxonomy.genus">Genus: {{ taxon.taxonomy.genus }}</h6>
+                    </p>
                 </div>
                 <div v-cloak id="tax2" class="col s6">
                     <h4 class="col s12">{{ taxon.english_name }}</h4>
                     <h5 class="col s12">{{ taxon.latin_name }}</h5>
+
                     <img :src="taxon.thumbnail_url">
+
+                    <p>
+                        <h3>Classification</h3>
+                        <h6 v-if="taxon.taxonomy.kingdom">Kingdom: {{ taxon.taxonomy.kingdom }}</h6>
+                        <h6 v-if="taxon.taxonomy.phylum">Phylum: {{ taxon.taxonomy.phylum }}</h6>
+                        <h6 v-if="taxon.taxonomy.subphylum">Subphylum: {{ taxon.taxonomy.subphylum }}</h6>
+                        <h6 v-if="taxon.taxonomy.class">Class: {{ taxon.taxonomy.class }}</h6>
+                        <h6 v-if="taxon.taxonomy.order">Order: {{ taxon.taxonomy.order }}</h6>
+                        <h6 v-if="taxon.taxonomy.family">Family: {{ taxon.taxonomy.family }}</h6>
+                        <h6 v-if="taxon.taxonomy.genus">Genus: {{ taxon.taxonomy.genus }}</h6>
+                    </p>
                 </div>
             </section>
             <section v-cloak id="factors" class="col s4">
