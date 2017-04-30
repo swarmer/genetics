@@ -1,4 +1,4 @@
-var factorsApp;
+var factorsApp = null;
 
 
 function search(val, spiece) {
@@ -80,29 +80,33 @@ function getFactors(id1, id2){
         jsn = JSON.parse(text);
         console.log(jsn);
 
-        factorsApp = new Vue({
-            el: '#factors',
-            data: {
-                factors: jsn,
-                selectedFactors: [],
+        if (factorsApp == null) {
+            factorsApp = new Vue({
+                el: '#factors',
+                data: {
+                    factors: jsn,
+                    selectedFactors: [],
 
-                showFactors: function () {
-                    console.log(factorsApp.selectedFactors);
+                    showFactors: function () {
+                        console.log(factorsApp.selectedFactors);
 
-                    clearFactors();
+                        clearFactors();
 
-                    factorsApp.selectedFactors.forEach(function(factor) {
-                        addFactor(factor);
-                    }, this);
+                        factorsApp.selectedFactors.forEach(function(factor) {
+                            addFactor(factor);
+                        }, this);
 
-                    console.log(factorsApp.selectedFactors);
-                },
+                        console.log(factorsApp.selectedFactors);
+                    },
 
-                newFactor: function () {
-                    drawingManager.setMap(map);
+                    newFactor: function () {
+                        drawingManager.setMap(map);
+                    }
                 }
-            }
-        });
+            });
+        } else {
+            factorsApp.factors = jsn;
+        }
 
         getAnimalInfo(id1, true);
         getAnimalInfo(id2, false);
