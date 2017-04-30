@@ -62,8 +62,6 @@ function processing(){
     globalId2 = id2;
 
     clearPopulationLayers();
-    document.getElementById('tax1').innerHTML = '';
-    document.getElementById('tax2').innerHTML = '';
 
     addPopulationLayer(map, gradient1, id1);
     addPopulationLayer(map, gradient2, id2);
@@ -128,7 +126,6 @@ function getAnimalInfo(id1, bol) {
     xhr.onload = function() {
         text = this.responseText;
         jsn = JSON.parse(text);
-
 
         var animalApp = new Vue({
             el: val,

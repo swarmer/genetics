@@ -22,7 +22,7 @@ var gradient2 = [
 function addPopulationLayer(map, gradient, taxonId) {
     $.get("http://genetics-api.swarmer.me/taxon/" + taxonId.toString() + "?observations=true", function(result) {
         var data = [];
-        result[0].observations.forEach(function(observation) {
+        result.observations.forEach(function(observation) {
             data.push(new google.maps.LatLng(observation.latitude, observation.longitude));
         }, this);
 
