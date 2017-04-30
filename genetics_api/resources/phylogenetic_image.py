@@ -7,7 +7,7 @@ from .utils import set_json_response
 from genetics_api.db import connect
 
 
-class BioticFactorResource(object):
+class PhylogeneticImageResource(object):
     def on_get(self, req, resp):
         taxon1_id = req.get_param_as_int('taxon1_id')
         taxon2_id = req.get_param_as_int('taxon2_id')
@@ -28,29 +28,16 @@ class BioticFactorResource(object):
 
             cursor.execute(
                 '''
-                    SELECT id, name, marker_name, taxon1_id, taxon2_id, polyline, description, type
-                    FROM biotic_factors
+                    SELECT image_url
+                    FROM phylogenetic_images
                     WHERE {condition};
                 '''.format(condition=condition),
                 params,
             )
-            result = [self._serialize_row(row) for row in cursor.fetchall()]
+            rows = cursor.fetchall()
+            if not rows:
+                result = {'image_url': None}
+            else:
+                result = dict(rows[0])
 
             set_json_response(resp, result)
-
-    def on_post(self, req, resp):
-        payload = json.load(req.stream)
-
-        with connect() as connection, connection.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
-            cursor.execute(
-                '''
-                    INSERT INTO biotic_factors (name, marker_name, taxon1_id, taxon2_id, description, polyline, type) VALUES
-                    (%(name)s, %(marker_name)s, %(taxon1_id)s, %(taxon2_id)s, %(description)s, %(polyline)s, %(type)s)
-                ''',
-                payload,
-            )
-            set_json_response(resp, {})
-
-
-    def _serialize_row(self, row):
-        return dict(row)
