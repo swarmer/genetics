@@ -9,8 +9,6 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   </head>
 
-  <body>
-
   <div id="navbar" class="row white" style="margin-bottom: 0px;">
           <form class="col s10 offset-s1">
               <!--<h3 class="col s12 light center-align">Enter two spieces</h3>-->
@@ -32,7 +30,29 @@
           </form>
   </div>
 
-  <div id="map"></div>
+  <div class="row">
+      <div class="col s3">
+          <section v-cloak id="factors" class="col s12">
+              <div v-for="factor in factors" class="col s12">
+                  <h4 class="col s12">{{ factor.name }}</h4>
+                  <h6>Type: {{ factor.type }}</h6>
+                  <h6>Marker: {{ factor.marker_name }}</h6>
+                  <p>{{ factor.description }}</p>
+                  <input type="checkbox" :id="'cb-id-' + factor.id" :value="factor" v-model="selectedFactors" @click="showFactors()">
+                  <label :for="'cb-id-' + factor.id">Select</label>
+              </div>
+              <button class="btn waves-effect waves-light" type="button" name="new-factor" @click="newFactor()">
+                  Add a new factor
+              </button>
+          </section>
+      </div>
+    <div class="col s9" style="height: 700px;">
+        <div id="map"></div>
+    </div>
+
+  </div>
+
+
   <div id="descSection">
     <div class="row">
         <div class="col s12">
@@ -48,19 +68,19 @@
                     <img :src="taxon.thumbnail_url">
                 </div>
             </section>
-            <section v-cloak id="factors" class="col s4">
-                <div v-for="factor in factors" class="col s12">
-                    <h4 class="col s12">{{ factor.name }}</h4>
-                    <h6>Type: {{ factor.type }}</h6>
-                    <h6>Marker: {{ factor.marker_name }}</h6>
-                    <p>{{ factor.description }}</p>
-                    <input type="checkbox" :id="'cb-id-' + factor.id" :value="factor" v-model="selectedFactors" @click="showFactors()">
-                    <label :for="'cb-id-' + factor.id">Select</label>
-                </div>
-                <button class="btn waves-effect waves-light" type="button" name="new-factor" @click="newFactor()">
-                    Add a new factor
-                </button>
-            </section>
+            <!--<section v-cloak id="factors" class="col s4">-->
+                <!--<div v-for="factor in factors" class="col s12">-->
+                    <!--<h4 class="col s12">{{ factor.name }}</h4>-->
+                    <!--<h6>Type: {{ factor.type }}</h6>-->
+                    <!--<h6>Marker: {{ factor.marker_name }}</h6>-->
+                    <!--<p>{{ factor.description }}</p>-->
+                    <!--<input type="checkbox" :id="'cb-id-' + factor.id" :value="factor" v-model="selectedFactors" @click="showFactors()">-->
+                    <!--<label :for="'cb-id-' + factor.id">Select</label>-->
+                <!--</div>-->
+                <!--<button class="btn waves-effect waves-light" type="button" name="new-factor" @click="newFactor()">-->
+                    <!--Add a new factor-->
+                <!--</button>-->
+            <!--</section>-->
         </div>
     </div>
   </div>

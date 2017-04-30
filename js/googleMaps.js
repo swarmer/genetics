@@ -66,6 +66,7 @@ function clearPopulationLayers() {
 
     populations = [];
     factors = {};
+
 }
 
 function initMap() {

@@ -22,8 +22,8 @@ function search(val, spiece) {
             if (size > 6)
                 size = 6;
             for (var i=0; i<size; i++){
-                inn += '<li id="' + jsn[i]['id'] + '" class="collection-item searchItem" onclick="selectItem(this,' + spiece + ')">' + jsn[i]['english_name']
-                    + '</li>';
+                inn += '<li id="' + jsn[i]['id'] + '" class="collection-item searchItem" value="'+ jsn[i]['english_name'] +'" onclick="selectItem(this,' + spiece + ')">' + jsn[i]['english_name']
+                    + ' <span class="light"> '+ jsn[i]['latin_name'] + '</span> <span class="thin"> '+ jsn[i]['gene'] +'</span></li>';
             }
             document.getElementById('ul'+spiece).innerHTML = inn;
         }
@@ -44,8 +44,7 @@ function clearUl(spiece) {
 }
 
 function selectItem(item, spiece) {
-    document.getElementById(spiece.id).value = item.innerHTML;
-    //document.getElementById(spiece.id).value = '';
+    document.getElementById(spiece.id).value = item.getAttribute('value');
     document.getElementById('ul'+spiece.id).innerHTML = '';
     document.getElementById('ul'+spiece.id).setAttribute('class', '');
     document.getElementById(spiece.id).setAttribute('val', item.id);
@@ -80,29 +79,35 @@ function getFactors(id1, id2){
         jsn = JSON.parse(text);
         console.log(jsn);
 
-        factorsApp = new Vue({
-            el: '#factors',
-            data: {
-                factors: jsn,
-                selectedFactors: [],
+        if (factorsApp == null) {
 
-                showFactors: function () {
-                    console.log(factorsApp.selectedFactors);
+            factorsApp = new Vue({
+                el: '#factors',
+                data: {
+                    factors: jsn,
+                    selectedFactors: [],
 
-                    clearFactors();
+                    showFactors: function () {
+                        console.log(factorsApp.selectedFactors);
 
-                    factorsApp.selectedFactors.forEach(function(factor) {
-                        addFactor(factor);
-                    }, this);
+                        clearFactors();
 
-                    console.log(factorsApp.selectedFactors);
-                },
+                        factorsApp.selectedFactors.forEach(function (factor) {
+                            addFactor(factor);
+                        }, this);
 
-                newFactor: function () {
-                    drawingManager.setMap(map);
+                        console.log(factorsApp.selectedFactors);
+                    },
+
+                    newFactor: function () {
+                        drawingManager.setMap(map);
+                    }
                 }
-            }
-        });
+            });
+        }
+        else {
+            factorsApp.factors = jsn;
+        }
 
         getAnimalInfo(id1, true);
         getAnimalInfo(id2, false);

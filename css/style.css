@@ -1,5 +1,5 @@
 #map {
-    height: 93%;
+    height: 85%;
 }
 
 #descSection {
@@ -19,6 +19,16 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+}
+
+.input-field input[type=text]#firstSpiece {
+    border-bottom: 1px solid #76ff03;
+    box-shadow: 0 1px 0 0 #76ff03;
+}
+
+.input-field input[type=text]#secondSpiece {
+    border-bottom: 1px solid #0277bd;
+    box-shadow: 0 1px 0 0 #0277bd;
 }
 
 [v-cloak] {
