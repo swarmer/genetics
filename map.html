@@ -40,11 +40,20 @@
                 <div id="tax1" class="col s6"></div>
                 <div id="tax2" class="col s6"></div>
             </section>
-            <section id="factors" class="col s4">
+            <section v-cloak id="factors" class="col s4">
+                <div v-for="factor in factors" class="col s12">
+                    <h4 class="col s12">{{ factor.name }}</h4>
+                    <h6>Type: {{ factor.type }}</h6>
+                    <h6>Marker: {{ factor.marker_name }}</h6>
+                    <p>{{ factor.description }}</p>
+                    <input type="checkbox" :id="'cb-id-' + factor.id" :value="factor" v-model="selectedFactors" @click="showFactors()">
+                    <label :for="'cb-id-' + factor.id">Select</label>
+                </div>
             </section>
         </div>
     </div>
   </div>
+  <script src="https://unpkg.com/vue"></script>
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8ceytJzS5je9WebT_pf3avncB92B0j7s&libraries=visualization,drawing&callback=initMap">
     </script>

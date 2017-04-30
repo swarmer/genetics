@@ -1,3 +1,6 @@
+var factorsApp;
+
+
 function search(val, spiece) {
     if (val == ''){
         document.getElementById('ul'+spiece).innerHTML = '';
@@ -79,17 +82,25 @@ function getFactors(id1, id2){
         jsn = JSON.parse(text);
         console.log(jsn);
 
-        var f = document.getElementById('factors');
-        var inn = ''
-        var size = jsn.length;
+        factorsApp = new Vue({
+            el: '#factors',
+            data: {
+                factors: jsn,
+                selectedFactors: [],
 
-        for (var i =0; i<size; i++){
-            inn += '<div class="col s12"><h4 class="col s12">' + jsn[i]['name'] + '</h4><h5 class="col s12 light">Marker name:'+ jsn[i]['marker_name'] +'</h5>' +
-                '<h5 class="col s12">Type:'+ jsn[i]['type']+'</h5><p class="col s12">Description: '+ jsn[i]['description'] +'</p></div>' ;
-            //inn += '<li class="collection-item">name: ' + jsn[i]['name'] + ' marker_name: ' + jsn[i]['marker_name'] + ' description: ' + jsn[i]['description'] + ' type:'+ jsn[i]['type'] +'</li>';
-        }
+                showFactors: function () {
+                    console.log(factorsApp.selectedFactors);
 
-        f.innerHTML = inn;
+                    clearFactors();
+
+                    factorsApp.selectedFactors.forEach(function(factor) {
+                        addFactor(factor);
+                    }, this);
+
+                    console.log(factorsApp.selectedFactors);
+                }
+            }
+        });
 
         getAnimalInfo(id1, true);
         getAnimalInfo(id2, false);
