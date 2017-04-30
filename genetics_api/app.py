@@ -1,6 +1,6 @@
 import falcon
 
-from .resources import BioticFactorResource, TaxonResource
+from .resources import BioticFactorResource, TaxonResource, PhylogeneticImageResource
 
 
 class CorsMiddleware(object):
@@ -19,3 +19,4 @@ app = application = falcon.API(middleware=CorsMiddleware())
 app.add_route('/taxon', TaxonResource())
 app.add_route('/taxon/{taxon_id}', TaxonResource())
 app.add_route('/biotic_factor', BioticFactorResource())
+app.add_route('/phylogenetic_image', PhylogeneticImageResource())
