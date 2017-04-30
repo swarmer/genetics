@@ -28,7 +28,7 @@ class BioticFactorResource(object):
 
             cursor.execute(
                 '''
-                    SELECT id, name, marker_name, taxon1_id, taxon2_id, polyline
+                    SELECT id, name, marker_name, taxon1_id, taxon2_id, polyline, description
                     FROM biotic_factors
                     WHERE {condition};
                 '''.format(condition=condition),
