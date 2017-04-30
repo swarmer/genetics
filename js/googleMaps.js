@@ -95,7 +95,6 @@ function initMap() {
         $.ajax({
             type: 'POST',
             url: 'http://genetics-api.swarmer.me/biotic_factor',
-            //url: 'http://127.0.0.1:8000/biotic_factor',
             data: JSON.stringify(data),
             contentType: "application/json",
             dataType: 'json'

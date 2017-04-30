@@ -1,3 +1,4 @@
+import codecs
 import json
 
 import falcon
@@ -39,8 +40,8 @@ class BioticFactorResource(object):
             set_json_response(resp, result)
 
     def on_post(self, req, resp):
-        print(req.stream.read())
-        payload = json.load(req.stream)
+        reader = codecs.getreader('utf-8')
+        payload = json.load(reader(req.stream))
 
         with connect() as connection, connection.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
             cursor.execute(
