@@ -37,6 +37,20 @@ function addPopulationLayer(map, gradient, taxonId) {
     });
 }
 
+function addPolyline(polyline) {
+    var factor = new google.maps.Polyline({
+        path: polyline,
+        geodesic: true,
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 2
+    });
+
+    factor.setMap(map);
+
+    populations.push(factor);
+}
+
 function clearPopulationLayers() {
     populations.forEach(function(p) {
         p.setMap(null);
@@ -54,4 +68,8 @@ function initMap() {
 
     addPopulationLayer(map, gradient1, 1);
     addPopulationLayer(map, gradient2, 2);
+    addPolyline([
+        {"lng": -122.214, "lat": 37.772}, {"lng": -157.821, "lat": 21.291},
+        {"lng": 178.431, "lat": -18.142}, {"lng": 153.027, "lat": -27.467}
+    ]);
 }
