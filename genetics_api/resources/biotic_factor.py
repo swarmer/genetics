@@ -28,7 +28,7 @@ class BioticFactorResource(object):
 
             cursor.execute(
                 '''
-                    SELECT id, name, marker_name, taxon1_id, taxon2_id, polyline, description
+                    SELECT id, name, marker_name, taxon1_id, taxon2_id, polyline, description, type
                     FROM biotic_factors
                     WHERE {condition};
                 '''.format(condition=condition),
@@ -44,8 +44,8 @@ class BioticFactorResource(object):
         with connect() as connection, connection.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
             cursor.execute(
                 '''
-                    INSERT INTO biotic_factors (name, marker_name, taxon1_id, taxon2_id, description, polyline) VALUES
-                    (%(name)s, %(marker_name)s, %(taxon1_id)s, %(taxon2_id)s, %(description)s, %(polyline)s)
+                    INSERT INTO biotic_factors (name, marker_name, taxon1_id, taxon2_id, description, polyline, type) VALUES
+                    (%(name)s, %(marker_name)s, %(taxon1_id)s, %(taxon2_id)s, %(description)s, %(polyline)s, %(type)s)
                 ''',
                 payload,
             )
