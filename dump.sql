@@ -5,7 +5,7 @@
 -- Dumped from database version 9.6.2
 -- Dumped by pg_dump version 9.6.2
 
--- Started on 2017-04-30 06:01:07 +03
+-- Started on 2017-04-30 10:54:15 +03
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -219,7 +219,7 @@ COPY biotic_factors (id, name, marker_name, taxon2_id, description, taxon1_id, p
 -- Name: biotic_factors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genetics-api
 --
 
-SELECT pg_catalog.setval('biotic_factors_id_seq', 7, true);
+SELECT pg_catalog.setval('biotic_factors_id_seq', 9, true);
 
 
 --
@@ -28201,22 +28201,22 @@ COPY phylogenetic_images (taxon1_id, taxon2_id, image_url) FROM stdin;
 --
 
 COPY taxons (id, english_name, latin_name, thumbnail_url, taxonomy) FROM stdin;
-3	Mule deer	Odocoileus hemionus	https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/2012-mule-deer-male.jpg/440px-2012-mule-deer-male.jpg	{}
-4	White-tailed deer	Odocoileus virginianus	https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/White-tailed_deer.jpg/440px-White-tailed_deer.jpg	{}
-1	American black bear	Ursus americanus	https://upload.wikimedia.org/wikipedia/commons/0/08/01_Schwarzb%C3%A4r.jpg	{}
-2	Brown bear	Ursus arctos	https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/2010-kodiak-bear-1.jpg/440px-2010-kodiak-bear-1.jpg	{}
-5	Central American Snapping Turtle	Chelydra rossignonii	https://static.inaturalist.org/photos/4668354/large.jpeg?1472141290	{}
-6	Common Snapping Turtle	Chelydra serpentina	https://farm4.staticflickr.com/3175/2850135743_563b1b7a3e.jpg	{}
-7	Sitka spruce	Picea sitchensis	https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/QuinaltSpruce_7246c.jpg/500px-QuinaltSpruce_7246c.jpg	{}
-8	Black spruce	Picea mariana	https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Black_spruce_stand_at_Arctic_Chalet%2C_Inuvik%2C_NT.jpg/440px-Black_spruce_stand_at_Arctic_Chalet%2C_Inuvik%2C_NT.jpg	{}
-9	American bumblebee	Bombus pensylvanicus	https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Bumblebee%2C_Albuquerque_PP_Sharp_Low.JPG/440px-Bumblebee%2C_Albuquerque_PP_Sharp_Low.JPG	{}
-10	Common eastern bumblebee	Bombus impatiens	https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Bombus_impatiens%2C_f%2C_queen%2C_charles_co_%2818239590966%29.jpg/440px-Bombus_impatiens%2C_f%2C_queen%2C_charles_co_%2818239590966%29.jpg	{}
-11	Freshwater pearl mussel	Margaritifera margaritifera	https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Margaritifera_margaritifera-buiten.jpg/440px-Margaritifera_margaritifera-buiten.jpg	{}
-12	Western pearlshell	Margaritifera falcata	\N	{}
-13	Coast redwood	Sequoia sempervirens	https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/US_199_Redwood_Highway.jpg/440px-US_199_Redwood_Highway.jpg	{}
-14	Giant sequoia	Sequoiadendron giganteum	https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Grizzly_Giant_Mariposa_Grove.jpg/440px-Grizzly_Giant_Mariposa_Grove.jpg	{}
-15	American Bison	Bison bison bison	https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/American_bison_k5680-1.jpg/440px-American_bison_k5680-1.jpg	{}
-16	Woods Bison	Bison bison ssp. athabascae	https://farm4.staticflickr.com/3510/3884993701_c1c5c3b6fd.jpg	{}
+12	Western pearlshell	Margaritifera falcata	\N	{"class": null, "genus": "Margaritifera", "order": "Unionoida", "family": "Margaritiferidae", "phylum": "Mollusca", "kingdom": "Animalia", "subphylum": "Bivalvia"}
+15	American Bison	Bison bison bison	https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/American_bison_k5680-1.jpg/440px-American_bison_k5680-1.jpg	{"class": "Mammalia", "genus": "Bison", "order": "Artiodactyla", "family": "Bovidae", "phylum": "Chordata", "kingdom": "Animalia", "subphylum": "Vertebrata"}
+3	Mule deer	Odocoileus hemionus	https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/2012-mule-deer-male.jpg/440px-2012-mule-deer-male.jpg	{"class": "Mammalia", "genus": "Odocoileus", "order": "Artiodactyla", "family": "Cervidae", "phylum": "Chordata", "kingdom": "Animalia", "subphylum": "Vertebrata"}
+4	White-tailed deer	Odocoileus virginianus	https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/White-tailed_deer.jpg/440px-White-tailed_deer.jpg	{"class": "Mammalia", "genus": "Odocoileus", "order": "Artiodactyla", "family": "Cervidae", "phylum": "Chordata", "kingdom": "Animalia", "subphylum": "Vertebrata"}
+1	American black bear	Ursus americanus	https://upload.wikimedia.org/wikipedia/commons/0/08/01_Schwarzb%C3%A4r.jpg	{"class": "Mammalia", "genus": "Ursus", "order": "Carnivora", "family": "Ursidae", "phylum": "Chordata", "kingdom": "Animalia", "subphylum": "Vertebrata"}
+2	Brown bear	Ursus arctos	https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/2010-kodiak-bear-1.jpg/440px-2010-kodiak-bear-1.jpg	{"class": "Mammalia", "genus": "Ursus", "order": "Carnivora", "family": "Ursidae", "phylum": "Chordata", "kingdom": "Animalia", "subphylum": "Vertebrata"}
+5	Central American Snapping Turtle	Chelydra rossignonii	https://static.inaturalist.org/photos/4668354/large.jpeg?1472141290	{"class": "Reptilia", "genus": "Chelydra", "order": "Testudines", "family": "Chelydridae", "phylum": "Chordata", "kingdom": "Animalia", "subphylum": "Vertebrata"}
+6	Common Snapping Turtle	Chelydra serpentina	https://farm4.staticflickr.com/3175/2850135743_563b1b7a3e.jpg	{"class": "Reptilia", "genus": "Chelydra", "order": "Testudines", "family": "Chelydridae", "phylum": "Chordata", "kingdom": "Animalia", "subphylum": "Vertebrata"}
+7	Sitka spruce	Picea sitchensis	https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/QuinaltSpruce_7246c.jpg/500px-QuinaltSpruce_7246c.jpg	{"class": "Pinopsida", "genus": "Picea", "order": "Pinales", "family": "Pinaceae", "phylum": "Tracheophyta", "kingdom": "Plantae", "subphylum": "Pinophyta"}
+8	Black spruce	Picea mariana	https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Black_spruce_stand_at_Arctic_Chalet%2C_Inuvik%2C_NT.jpg/440px-Black_spruce_stand_at_Arctic_Chalet%2C_Inuvik%2C_NT.jpg	{"class": "Pinopsida", "genus": "Picea", "order": "Pinales", "family": "Pinaceae", "phylum": "Tracheophyta", "kingdom": "Plantae", "subphylum": "Pinophyta"}
+9	American bumblebee	Bombus pensylvanicus	https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Bumblebee%2C_Albuquerque_PP_Sharp_Low.JPG/440px-Bumblebee%2C_Albuquerque_PP_Sharp_Low.JPG	{"class": "Insecta", "genus": "Bombus", "order": "Hymenoptera", "family": "Apidae", "phylum": "Arthropoda", "kingdom": "Animalia", "subphylum": "Hexapoda"}
+10	Common eastern bumblebee	Bombus impatiens	https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Bombus_impatiens%2C_f%2C_queen%2C_charles_co_%2818239590966%29.jpg/440px-Bombus_impatiens%2C_f%2C_queen%2C_charles_co_%2818239590966%29.jpg	{"class": "Insecta", "genus": "Bombus", "order": "Hymenoptera", "family": "Apidae", "phylum": "Arthropoda", "kingdom": "Animalia", "subphylum": "Hexapoda"}
+11	Freshwater pearl mussel	Margaritifera margaritifera	https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Margaritifera_margaritifera-buiten.jpg/440px-Margaritifera_margaritifera-buiten.jpg	{"class": null, "genus": "Margaritifera", "order": "Unionoida", "family": "Margaritiferidae", "phylum": "Mollusca", "kingdom": "Animalia", "subphylum": "Bivalvia"}
+16	Woods Bison	Bison bison ssp. athabascae	https://farm4.staticflickr.com/3510/3884993701_c1c5c3b6fd.jpg	{"class": "Mammalia", "genus": "Bison", "order": "Artiodactyla", "family": "Bovidae", "phylum": "Chordata", "kingdom": "Animalia", "subphylum": "Vertebrata"}
+13	Coast redwood	Sequoia sempervirens	https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/US_199_Redwood_Highway.jpg/440px-US_199_Redwood_Highway.jpg	{"class": "Pinopsida", "genus": "Sequoia", "order": "Pinales", "family": "Cupressaceae", "phylum": "Tracheophyta", "kingdom": "Plantae", "subphylum": "Pinophyta"}
+14	Giant sequoia	Sequoiadendron giganteum	https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Grizzly_Giant_Mariposa_Grove.jpg/440px-Grizzly_Giant_Mariposa_Grove.jpg	{"class": "Pinopsida", "genus": "Sequoiadendron", "order": "Pinales", "family": "Cupressaceae", "phylum": "Tracheophyta", "kingdom": "Plantae", "subphylum": "Pinophyta"}
 \.
 
 
@@ -28301,7 +28301,7 @@ ALTER TABLE ONLY phylogenetic_images
     ADD CONSTRAINT phylogenetic_images___taxon2_id__fk FOREIGN KEY (taxon2_id) REFERENCES taxons(id);
 
 
--- Completed on 2017-04-30 06:01:07 +03
+-- Completed on 2017-04-30 10:54:15 +03
 
 --
 -- PostgreSQL database dump complete

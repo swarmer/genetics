@@ -1,4 +1,6 @@
-var factorsApp;
+var factorsApp = null;
+var animalApp1 = null;
+var animalApp2 = null;
 
 
 function search(val, spiece) {
@@ -62,13 +64,23 @@ function processing(){
 
     clearPopulationLayers();
 
-    addPopulationLayer(map, gradient1, id1);
-    addPopulationLayer(map, gradient2, id2);
+    if (id1) {
+        addPopulationLayer(map, gradient1, id1);
+        getAnimalInfo(id1, true);
+    }
+
+    if (id2) {
+        addPopulationLayer(map, gradient2, id2);
+        getAnimalInfo(id2, false);
+    }
 
     getFactors(id1, id2);
 }
 
 function getFactors(id1, id2){
+    if (!id1 || !id2)
+        return;
+
     var xhr = new XMLHttpRequest();
     xhr.open('GET', 'http://genetics-api.swarmer.me/biotic_factor?taxon1_id=' + id1 + '&taxon2_id=' + id2, true);
 
@@ -80,7 +92,6 @@ function getFactors(id1, id2){
         console.log(jsn);
 
         if (factorsApp == null) {
-
             factorsApp = new Vue({
                 el: '#factors',
                 data: {
@@ -91,8 +102,7 @@ function getFactors(id1, id2){
                         console.log(factorsApp.selectedFactors);
 
                         clearFactors();
-
-                        factorsApp.selectedFactors.forEach(function (factor) {
+                        factorsApp.selectedFactors.forEach(function(factor) {
                             addFactor(factor);
                         }, this);
 
@@ -136,12 +146,29 @@ function getAnimalInfo(id1, bol) {
         text = this.responseText;
         jsn = JSON.parse(text);
 
-        var animalApp = new Vue({
-            el: val,
-            data: {
-                taxon: jsn,
+        if (bol) {
+            if (animalApp1 == null) {
+                animalApp1 = new Vue({
+                    el: val,
+                    data: {
+                        taxon: jsn,
+                    }
+                });
+            } else {
+                animalApp1.taxon = jsn;
             }
-        });
+        } else {
+            if (animalApp2 == null) {
+                animalApp2 = new Vue({
+                    el: val,
+                    data: {
+                        taxon: jsn,
+                    }
+                });
+            } else {
+                animalApp2.taxon = jsn;
+            }
+        }
     }
 
     xhr.onerror = function() {
