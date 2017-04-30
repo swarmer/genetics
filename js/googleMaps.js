@@ -3,7 +3,7 @@
 // parameter when you first load the API. For example:
 // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=visualization">
 
-var map, populations = [], factors = {};
+var map, populations = [], factors = {}, drawingManager;
 
 var gradient1 = [
     'rgba(0, 255, 0, 0)',
@@ -70,6 +70,36 @@ function initMap() {
         zoom: 3,
         center: {lat: 37.775, lng: -122.434},
         mapTypeId: 'satellite'
+    });
+
+    drawingManager = new google.maps.drawing.DrawingManager({
+        drawingMode: google.maps.drawing.OverlayType.POLYLINE,
+        drawingControl: false,
+    });
+    drawingManager.setMap(map);
+
+    google.maps.event.addListener(drawingManager, 'polylinecomplete', function(event) {
+        var polyline = JSON.stringify(event.getPath().getArray());
+
+        // Get remaining fields...
+
+        var data = {
+            name: null,
+            marker_name: null,
+            taxon1_id: null,
+            taxon2_id: null,
+            description: null,
+            polyline: polyline,
+            type: null,
+        };
+        $.ajax({
+            type: 'POST',
+            //url: 'http://genetics-api.swarmer.me/biotic_factor',
+            url: 'http://127.0.0.1:8000/biotic_factor',
+            data: JSON.stringify(data),
+            contentType: "application/json",
+            dataType: 'json'
+        });
     });
 
 

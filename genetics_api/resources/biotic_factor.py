@@ -38,7 +38,7 @@ class BioticFactorResource(object):
 
             set_json_response(resp, result)
 
-    def on_post(self, req, resp):
+    def on_post(self, req, resp) -> None:
         payload = json.load(req.stream)
 
         with connect() as connection, connection.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
