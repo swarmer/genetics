@@ -83,8 +83,14 @@ function getFactors(id1, id2){
 
     $.get("http://genetics-api.swarmer.me/phylogenetic_image/?taxon1_id=" + id1 + "&taxon2_id=" + id2, function(result) {
         var url = result.image_url;
-        var image = getElementById('tree-img');
-        image.setAttribute('href', url);
+        var image = document.getElementById('tree-img');
+        image.setAttribute('src', url);
+
+        var section = document.getElementById('phyl-section');
+        if (url != null)
+            $(section).show();
+        else
+            $(section).hide();
     });
 
     var xhr = new XMLHttpRequest();
