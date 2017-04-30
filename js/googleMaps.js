@@ -3,7 +3,7 @@
 // parameter when you first load the API. For example:
 // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=visualization">
 
-var map, populations = [];
+var map, populations = [], factors = {};
 
 var gradient1 = [
     'rgba(0, 255, 0, 0)',
@@ -37,18 +37,23 @@ function addPopulationLayer(map, gradient, taxonId) {
     });
 }
 
-function addPolyline(polyline) {
-    var factor = new google.maps.Polyline({
-        path: polyline,
+function addFactor(factor) {
+    var factorLine = new google.maps.Polyline({
+        path: factor.polyline,
         geodesic: true,
         strokeColor: '#FF0000',
         strokeOpacity: 1.0,
         strokeWeight: 2
     });
 
-    factor.setMap(map);
+    factorLine.setMap(map);
 
-    populations.push(factor);
+    factors[factor.id] = factorLine;
+}
+
+function clearFactor(factorId) {
+    factors[factorId].setMap(null);
+    delete factors[factorId];
 }
 
 function clearPopulationLayers() {
@@ -57,6 +62,7 @@ function clearPopulationLayers() {
     }, this);
 
     populations = [];
+    factors = {};
 }
 
 function initMap() {
@@ -68,8 +74,11 @@ function initMap() {
 
     addPopulationLayer(map, gradient1, 1);
     addPopulationLayer(map, gradient2, 2);
-    addPolyline([
-        {"lng": -122.214, "lat": 37.772}, {"lng": -157.821, "lat": 21.291},
-        {"lng": 178.431, "lat": -18.142}, {"lng": 153.027, "lat": -27.467}
-    ]);
+    addFactor({
+        "id": 100500,
+        "polyline": [
+            {"lng": -122.214, "lat": 37.772}, {"lng": -157.821, "lat": 21.291},
+            {"lng": 178.431, "lat": -18.142}, {"lng": 153.027, "lat": -27.467}
+        ]
+    });
 }
