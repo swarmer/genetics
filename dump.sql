@@ -5,7 +5,7 @@
 -- Dumped from database version 9.6.2
 -- Dumped by pg_dump version 9.6.2
 
--- Started on 2017-04-30 02:40:55 +03
+-- Started on 2017-04-30 04:34:19 +03
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -25,7 +25,7 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- TOC entry 2422 (class 0 OID 0)
+-- TOC entry 2425 (class 0 OID 0)
 -- Dependencies: 1
 -- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
 --
@@ -47,9 +47,11 @@ SET default_with_oids = false;
 CREATE TABLE biotic_factors (
     id integer NOT NULL,
     name text,
-    marker_name text,
+    marker_name text DEFAULT 'Cytochrome c'::text,
+    taxon2_id integer NOT NULL,
+    description text,
     taxon1_id integer NOT NULL,
-    taxon2_id integer NOT NULL
+    polyline jsonb DEFAULT '[]'::jsonb NOT NULL
 );
 
 
@@ -71,7 +73,7 @@ CREATE SEQUENCE biotic_factors_id_seq
 ALTER TABLE biotic_factors_id_seq OWNER TO "genetics-api";
 
 --
--- TOC entry 2423 (class 0 OID 0)
+-- TOC entry 2426 (class 0 OID 0)
 -- Dependencies: 189
 -- Name: biotic_factors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genetics-api
 --
@@ -110,7 +112,7 @@ CREATE SEQUENCE observations_id_seq
 ALTER TABLE observations_id_seq OWNER TO "genetics-api";
 
 --
--- TOC entry 2424 (class 0 OID 0)
+-- TOC entry 2427 (class 0 OID 0)
 -- Dependencies: 187
 -- Name: observations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genetics-api
 --
@@ -127,7 +129,8 @@ CREATE TABLE taxons (
     id integer NOT NULL,
     english_name text,
     latin_name text,
-    thumbnail_url text
+    thumbnail_url text,
+    taxonomy jsonb DEFAULT '{}'::jsonb NOT NULL
 );
 
 
@@ -149,7 +152,7 @@ CREATE SEQUENCE taxons_id_seq
 ALTER TABLE taxons_id_seq OWNER TO "genetics-api";
 
 --
--- TOC entry 2425 (class 0 OID 0)
+-- TOC entry 2428 (class 0 OID 0)
 -- Dependencies: 185
 -- Name: taxons_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genetics-api
 --
@@ -158,7 +161,7 @@ ALTER SEQUENCE taxons_id_seq OWNED BY taxons.id;
 
 
 --
--- TOC entry 2283 (class 2604 OID 16416)
+-- TOC entry 2284 (class 2604 OID 16416)
 -- Name: biotic_factors id; Type: DEFAULT; Schema: public; Owner: genetics-api
 --
 
@@ -166,7 +169,7 @@ ALTER TABLE ONLY biotic_factors ALTER COLUMN id SET DEFAULT nextval('biotic_fact
 
 
 --
--- TOC entry 2282 (class 2604 OID 16403)
+-- TOC entry 2283 (class 2604 OID 16403)
 -- Name: observations id; Type: DEFAULT; Schema: public; Owner: genetics-api
 --
 
@@ -182,29 +185,30 @@ ALTER TABLE ONLY taxons ALTER COLUMN id SET DEFAULT nextval('taxons_id_seq'::reg
 
 
 --
--- TOC entry 2415 (class 0 OID 16413)
+-- TOC entry 2418 (class 0 OID 16413)
 -- Dependencies: 190
 -- Data for Name: biotic_factors; Type: TABLE DATA; Schema: public; Owner: genetics-api
 --
 
-COPY biotic_factors (id, name, marker_name, taxon1_id, taxon2_id) FROM stdin;
-1	Cold	\N	1	2
-2	Trump Wall	\N	1	2
-5	IDK	Ace3	1	2
+COPY biotic_factors (id, name, marker_name, taxon2_id, description, taxon1_id, polyline) FROM stdin;
+1	Cold	\N	2	\N	1	[{"lat": 37.772, "lng": -122.214}, {"lat": 21.291, "lng": -157.821}, {"lat": -18.142, "lng": 178.431}, {"lat": -27.467, "lng": 153.027}]
+2	Trump Wall	\N	2	\N	1	[{"lat": 37.772, "lng": -122.214}, {"lat": 21.291, "lng": -157.821}, {"lat": -18.142, "lng": 178.431}, {"lat": -27.467, "lng": 153.027}]
+5	IDK	Ace3	2	\N	1	[{"lat": 37.772, "lng": -122.214}, {"lat": 21.291, "lng": -157.821}, {"lat": -18.142, "lng": 178.431}, {"lat": -27.467, "lng": 153.027}]
+6	IDK2	Ace4	4	Hello	3	[{"lat": 37.772, "lng": -122.214}, {"lat": 21.291, "lng": -157.821}, {"lat": -18.142, "lng": 178.431}, {"lat": -27.467, "lng": 153.027}]
 \.
 
 
 --
--- TOC entry 2426 (class 0 OID 0)
+-- TOC entry 2429 (class 0 OID 0)
 -- Dependencies: 189
 -- Name: biotic_factors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genetics-api
 --
 
-SELECT pg_catalog.setval('biotic_factors_id_seq', 5, true);
+SELECT pg_catalog.setval('biotic_factors_id_seq', 7, true);
 
 
 --
--- TOC entry 2413 (class 0 OID 16400)
+-- TOC entry 2416 (class 0 OID 16400)
 -- Dependencies: 188
 -- Data for Name: observations; Type: TABLE DATA; Schema: public; Owner: genetics-api
 --
@@ -28156,7 +28160,7 @@ COPY observations (id, taxon_id, latitude, longitude) FROM stdin;
 
 
 --
--- TOC entry 2427 (class 0 OID 0)
+-- TOC entry 2430 (class 0 OID 0)
 -- Dependencies: 187
 -- Name: observations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genetics-api
 --
@@ -28165,33 +28169,33 @@ SELECT pg_catalog.setval('observations_id_seq', 27985, true);
 
 
 --
--- TOC entry 2411 (class 0 OID 16389)
+-- TOC entry 2414 (class 0 OID 16389)
 -- Dependencies: 186
 -- Data for Name: taxons; Type: TABLE DATA; Schema: public; Owner: genetics-api
 --
 
-COPY taxons (id, english_name, latin_name, thumbnail_url) FROM stdin;
-3	Mule deer	Odocoileus hemionus	https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/2012-mule-deer-male.jpg/440px-2012-mule-deer-male.jpg
-4	White-tailed deer	Odocoileus virginianus	https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/White-tailed_deer.jpg/440px-White-tailed_deer.jpg
-1	American black bear	Ursus americanus	https://upload.wikimedia.org/wikipedia/commons/0/08/01_Schwarzb%C3%A4r.jpg
-2	Brown bear	Ursus arctos	https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/2010-kodiak-bear-1.jpg/440px-2010-kodiak-bear-1.jpg
-5	Central American Snapping Turtle	Chelydra rossignonii	https://static.inaturalist.org/photos/4668354/large.jpeg?1472141290
-6	Common Snapping Turtle	Chelydra serpentina	https://farm4.staticflickr.com/3175/2850135743_563b1b7a3e.jpg
-7	Sitka spruce	Picea sitchensis	https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/QuinaltSpruce_7246c.jpg/500px-QuinaltSpruce_7246c.jpg
-8	Black spruce	Picea mariana	https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Black_spruce_stand_at_Arctic_Chalet%2C_Inuvik%2C_NT.jpg/440px-Black_spruce_stand_at_Arctic_Chalet%2C_Inuvik%2C_NT.jpg
-9	American bumblebee	Bombus pensylvanicus	https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Bumblebee%2C_Albuquerque_PP_Sharp_Low.JPG/440px-Bumblebee%2C_Albuquerque_PP_Sharp_Low.JPG
-10	Common eastern bumblebee	Bombus impatiens	https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Bombus_impatiens%2C_f%2C_queen%2C_charles_co_%2818239590966%29.jpg/440px-Bombus_impatiens%2C_f%2C_queen%2C_charles_co_%2818239590966%29.jpg
-11	Freshwater pearl mussel	Margaritifera margaritifera	https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Margaritifera_margaritifera-buiten.jpg/440px-Margaritifera_margaritifera-buiten.jpg
-12	Western pearlshell	Margaritifera falcata	\N
-13	Coast redwood	Sequoia sempervirens	https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/US_199_Redwood_Highway.jpg/440px-US_199_Redwood_Highway.jpg
-14	Giant sequoia	Sequoiadendron giganteum	https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Grizzly_Giant_Mariposa_Grove.jpg/440px-Grizzly_Giant_Mariposa_Grove.jpg
-15	American Bison	Bison bison bison	https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/American_bison_k5680-1.jpg/440px-American_bison_k5680-1.jpg
-16	Woods Bison	Bison bison ssp. athabascae	https://farm4.staticflickr.com/3510/3884993701_c1c5c3b6fd.jpg
+COPY taxons (id, english_name, latin_name, thumbnail_url, taxonomy) FROM stdin;
+3	Mule deer	Odocoileus hemionus	https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/2012-mule-deer-male.jpg/440px-2012-mule-deer-male.jpg	{}
+4	White-tailed deer	Odocoileus virginianus	https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/White-tailed_deer.jpg/440px-White-tailed_deer.jpg	{}
+1	American black bear	Ursus americanus	https://upload.wikimedia.org/wikipedia/commons/0/08/01_Schwarzb%C3%A4r.jpg	{}
+2	Brown bear	Ursus arctos	https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/2010-kodiak-bear-1.jpg/440px-2010-kodiak-bear-1.jpg	{}
+5	Central American Snapping Turtle	Chelydra rossignonii	https://static.inaturalist.org/photos/4668354/large.jpeg?1472141290	{}
+6	Common Snapping Turtle	Chelydra serpentina	https://farm4.staticflickr.com/3175/2850135743_563b1b7a3e.jpg	{}
+7	Sitka spruce	Picea sitchensis	https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/QuinaltSpruce_7246c.jpg/500px-QuinaltSpruce_7246c.jpg	{}
+8	Black spruce	Picea mariana	https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Black_spruce_stand_at_Arctic_Chalet%2C_Inuvik%2C_NT.jpg/440px-Black_spruce_stand_at_Arctic_Chalet%2C_Inuvik%2C_NT.jpg	{}
+9	American bumblebee	Bombus pensylvanicus	https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Bumblebee%2C_Albuquerque_PP_Sharp_Low.JPG/440px-Bumblebee%2C_Albuquerque_PP_Sharp_Low.JPG	{}
+10	Common eastern bumblebee	Bombus impatiens	https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Bombus_impatiens%2C_f%2C_queen%2C_charles_co_%2818239590966%29.jpg/440px-Bombus_impatiens%2C_f%2C_queen%2C_charles_co_%2818239590966%29.jpg	{}
+11	Freshwater pearl mussel	Margaritifera margaritifera	https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Margaritifera_margaritifera-buiten.jpg/440px-Margaritifera_margaritifera-buiten.jpg	{}
+12	Western pearlshell	Margaritifera falcata	\N	{}
+13	Coast redwood	Sequoia sempervirens	https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/US_199_Redwood_Highway.jpg/440px-US_199_Redwood_Highway.jpg	{}
+14	Giant sequoia	Sequoiadendron giganteum	https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Grizzly_Giant_Mariposa_Grove.jpg/440px-Grizzly_Giant_Mariposa_Grove.jpg	{}
+15	American Bison	Bison bison bison	https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/American_bison_k5680-1.jpg/440px-American_bison_k5680-1.jpg	{}
+16	Woods Bison	Bison bison ssp. athabascae	https://farm4.staticflickr.com/3510/3884993701_c1c5c3b6fd.jpg	{}
 \.
 
 
 --
--- TOC entry 2428 (class 0 OID 0)
+-- TOC entry 2431 (class 0 OID 0)
 -- Dependencies: 185
 -- Name: taxons_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genetics-api
 --
@@ -28200,7 +28204,7 @@ SELECT pg_catalog.setval('taxons_id_seq', 16, true);
 
 
 --
--- TOC entry 2289 (class 2606 OID 16421)
+-- TOC entry 2292 (class 2606 OID 16421)
 -- Name: biotic_factors biotic_factors_pkey; Type: CONSTRAINT; Schema: public; Owner: genetics-api
 --
 
@@ -28209,7 +28213,7 @@ ALTER TABLE ONLY biotic_factors
 
 
 --
--- TOC entry 2287 (class 2606 OID 16405)
+-- TOC entry 2290 (class 2606 OID 16405)
 -- Name: observations observations_pkey; Type: CONSTRAINT; Schema: public; Owner: genetics-api
 --
 
@@ -28218,7 +28222,7 @@ ALTER TABLE ONLY observations
 
 
 --
--- TOC entry 2285 (class 2606 OID 16397)
+-- TOC entry 2288 (class 2606 OID 16397)
 -- Name: taxons taxons_pkey; Type: CONSTRAINT; Schema: public; Owner: genetics-api
 --
 
@@ -28227,7 +28231,7 @@ ALTER TABLE ONLY taxons
 
 
 --
--- TOC entry 2291 (class 2606 OID 16422)
+-- TOC entry 2295 (class 2606 OID 16449)
 -- Name: biotic_factors biotic_factors___taxon1_id__fk; Type: FK CONSTRAINT; Schema: public; Owner: genetics-api
 --
 
@@ -28236,7 +28240,7 @@ ALTER TABLE ONLY biotic_factors
 
 
 --
--- TOC entry 2292 (class 2606 OID 16427)
+-- TOC entry 2294 (class 2606 OID 16427)
 -- Name: biotic_factors biotic_factors___taxon2_id__fk; Type: FK CONSTRAINT; Schema: public; Owner: genetics-api
 --
 
@@ -28245,7 +28249,7 @@ ALTER TABLE ONLY biotic_factors
 
 
 --
--- TOC entry 2290 (class 2606 OID 16406)
+-- TOC entry 2293 (class 2606 OID 16406)
 -- Name: observations observations___taxon_id__fk; Type: FK CONSTRAINT; Schema: public; Owner: genetics-api
 --
 
@@ -28253,7 +28257,7 @@ ALTER TABLE ONLY observations
     ADD CONSTRAINT observations___taxon_id__fk FOREIGN KEY (taxon_id) REFERENCES taxons(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
--- Completed on 2017-04-30 02:40:55 +03
+-- Completed on 2017-04-30 04:34:19 +03
 
 --
 -- PostgreSQL database dump complete
