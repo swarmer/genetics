@@ -11,7 +11,6 @@ function search(val, spiece) {
         xhr.onload = function() {
             text = this.responseText;
             jsn = JSON.parse(text);
-            console.log(jsn);
 
             document.getElementById('ul'+spiece).setAttribute('class', 'collection');
             document.getElementById('ul'+spiece).innerHTML = '';
@@ -49,14 +48,24 @@ function selectItem(item, spiece) {
     document.getElementById(spiece.id).setAttribute('val', item.id);
 }
 
+var globalId1;
+var globalId2;
+
 function processing(){
     var id1 = document.getElementById("firstSpiece").getAttribute("val");
     var id2 = document.getElementById("secondSpiece").getAttribute("val");
+
+    globalId1 = id1;
+    globalId2 = id2;
+
     clearPopulationLayers();
+    document.getElementById('tax1').innerHTML = '';
+    document.getElementById('tax2').innerHTML = '';
+
     addPopulationLayer(map, gradient1, id1);
     addPopulationLayer(map, gradient2, id2);
 
-    //getFactors(id1, id2);
+    getFactors(id1, id2);
 }
 
 function getFactors(id1, id2){
@@ -68,15 +77,22 @@ function getFactors(id1, id2){
     xhr.onload = function() {
         text = this.responseText;
         jsn = JSON.parse(text);
+        console.log(jsn);
 
         var f = document.getElementById('factors');
         var inn = ''
         var size = jsn.length;
 
         for (var i =0; i<size; i++){
-            inn += '<li class="collection-item">name: ' + jsn[i]['name'] + ' marker_name: ' + jsn[i]['marker_name'] + '</li>';
+            inn += '<div class="col s12"><h4 class="col s12">' + jsn[i]['name'] + '</h4><h5 class="col s12 light">Marker name:'+ jsn[i]['marker_name'] +'</h5>' +
+                '<h5 class="col s12">Type:'+ jsn[i]['type']+'</h5><p class="col s12">Description: '+ jsn[i]['description'] +'</p></div>' ;
+            //inn += '<li class="collection-item">name: ' + jsn[i]['name'] + ' marker_name: ' + jsn[i]['marker_name'] + ' description: ' + jsn[i]['description'] + ' type:'+ jsn[i]['type'] +'</li>';
         }
-        document.getElementById('ulFactors').innerHTML = inn;
+
+        f.innerHTML = inn;
+
+        getAnimalInfo(id1, true);
+        getAnimalInfo(id2, false);
     }
 
     xhr.onerror = function() {
@@ -86,4 +102,34 @@ function getFactors(id1, id2){
     xhr.send();
 }
 
-//http://genetics-api.swarmer.me/biotic_factor?taxon1_id=1&taxon2_id=2
+function getAnimalInfo(id1, bol) {
+    var val = 'tax1';
+    if (bol == false){
+        val = 'tax2';
+    }
+    var div = document.getElementById(val);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://genetics-api.swarmer.me/taxon/' + id1, true);
+
+    var text;
+    var jsn;
+
+    xhr.onload = function() {
+        text = this.responseText;
+        jsn = JSON.parse(text);
+        var inn= '';
+        var size = jsn.length;
+        for (var i = 0; i < size; i++){
+            inn += '<h4 class="col s12">'+ jsn[i]['english_name'] +'</h4>';
+            inn += '<h4 class="col s12">'+ jsn[i]['latin_name'] +'</h4>';
+            inn += '<img src="'+ jsn[i]['thumbnail_url'] +'"/>';
+            div.innerHTML = inn;
+        }
+    }
+
+    xhr.onerror = function() {
+        alert( 'Ошибка ' + this.status );
+    }
+    xhr.send();
+}
