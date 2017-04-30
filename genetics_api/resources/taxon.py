@@ -13,7 +13,7 @@ class TaxonResource(object):
         with connect() as connection, connection.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
             if search:
                 pattern = '%{}%'.format(search)
-                search_condition = '(english_name ILIKE %(pattern)s OR latin_name ILIKE %(pattern)s)'
+                search_condition = '(english_name ILIKE %(pattern)s OR latin_name ILIKE %(pattern)s OR gene ILIKE %(pattern)s)'
             else:
                 pattern = None
                 search_condition = '(TRUE)'
@@ -25,7 +25,7 @@ class TaxonResource(object):
 
             cursor.execute(
                 '''
-                    SELECT id, english_name, latin_name, thumbnail_url, taxonomy
+                    SELECT id, english_name, latin_name, thumbnail_url, taxonomy, gene
                     FROM taxons
                     WHERE {search_condition} AND {filter_condition};
                 '''.format(search_condition=search_condition, filter_condition=filter_condition),
