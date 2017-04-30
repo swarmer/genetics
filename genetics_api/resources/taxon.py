@@ -45,7 +45,10 @@ class TaxonResource(object):
                         'longitude': observation['longitude'],
                     })
 
-            set_json_response(resp, list(result.values()))
+            if taxon_id is not None:
+                set_json_response(resp, list(result.values())[0])
+            else:
+                set_json_response(resp, list(result.values()))
 
     def get_observations(self, cursor, taxon_ids):
         if not taxon_ids:

@@ -114,11 +114,10 @@ function getFactors(id1, id2){
 }
 
 function getAnimalInfo(id1, bol) {
-    var val = 'tax1';
+    var val = '#tax1';
     if (bol == false){
-        val = 'tax2';
+        val = '#tax2';
     }
-    var div = document.getElementById(val);
 
     var xhr = new XMLHttpRequest();
     xhr.open('GET', 'http://genetics-api.swarmer.me/taxon/' + id1, true);
@@ -129,14 +128,14 @@ function getAnimalInfo(id1, bol) {
     xhr.onload = function() {
         text = this.responseText;
         jsn = JSON.parse(text);
-        var inn= '';
-        var size = jsn.length;
-        for (var i = 0; i < size; i++){
-            inn += '<h4 class="col s12">'+ jsn[i]['english_name'] +'</h4>';
-            inn += '<h4 class="col s12">'+ jsn[i]['latin_name'] +'</h4>';
-            inn += '<img src="'+ jsn[i]['thumbnail_url'] +'"/>';
-            div.innerHTML = inn;
-        }
+
+
+        var animalApp = new Vue({
+            el: val,
+            data: {
+                taxon: jsn,
+            }
+        });
     }
 
     xhr.onerror = function() {

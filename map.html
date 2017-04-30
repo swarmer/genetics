@@ -37,8 +37,16 @@
     <div class="row">
         <div class="col s12">
             <section class="col s8"> <!-- for table -->
-                <div id="tax1" class="col s6"></div>
-                <div id="tax2" class="col s6"></div>
+                <div v-cloak id="tax1" class="col s6">
+                    <h4 class="col s12">{{ taxon.english_name }}</h4>
+                    <h5 class="col s12">{{ taxon.latin_name }}</h5>
+                    <img :src="taxon.thumbnail_url">
+                </div>
+                <div v-cloak id="tax2" class="col s6">
+                    <h4 class="col s12">{{ taxon.english_name }}</h4>
+                    <h5 class="col s12">{{ taxon.latin_name }}</h5>
+                    <img :src="taxon.thumbnail_url">
+                </div>
             </section>
             <section v-cloak id="factors" class="col s4">
                 <div v-for="factor in factors" class="col s12">
