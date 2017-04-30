@@ -3,7 +3,7 @@
 // parameter when you first load the API. For example:
 // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=visualization">
 
-var map, population1, population2;
+var map, populations = [];
 
 var gradient1 = [
     'rgba(0, 255, 0, 0)',
@@ -33,8 +33,16 @@ function addPopulationLayer(map, gradient, taxonId) {
         heatmap.set('gradient', gradient);
         heatmap.set('radius', 40);
 
-        return heatmap;
+        populations.push(heatmap);
     });
+}
+
+function clearPopulationLayers() {
+    populations.forEach(function(p) {
+        p.setMap(null);
+    }, this);
+
+    populations = [];
 }
 
 function initMap() {
@@ -44,6 +52,6 @@ function initMap() {
         mapTypeId: 'satellite'
     });
 
-    population1 = addPopulationLayer(map, gradient1, 1);
-    population2 = addPopulationLayer(map, gradient2, 2);
+    addPopulationLayer(map, gradient1, 1);
+    addPopulationLayer(map, gradient2, 2);
 }
