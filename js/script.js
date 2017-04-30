@@ -96,6 +96,10 @@ function getFactors(id1, id2){
                     }, this);
 
                     console.log(factorsApp.selectedFactors);
+                },
+
+                newFactor: function () {
+                    drawingManager.setMap(map);
                 }
             }
         });

@@ -78,8 +78,13 @@ function initMap() {
     drawingManager = new google.maps.drawing.DrawingManager({
         drawingMode: google.maps.drawing.OverlayType.POLYLINE,
         drawingControl: false,
+        polylineOptions: {
+            strokeColor: '#FF0000',
+            strokeOpacity: 1.0,
+            strokeWeight: 2
+        },
     });
-    drawingManager.setMap(map);
+    //drawingManager.setMap(map);
 
     google.maps.event.addListener(drawingManager, 'polylinecomplete', function(event) {
         var polyline = JSON.stringify(event.getPath().getArray());
@@ -95,6 +100,7 @@ function initMap() {
             polyline: polyline,
             type: null,
         };
+        console.log(data);
         $.ajax({
             type: 'POST',
             url: 'http://genetics-api.swarmer.me/biotic_factor',
