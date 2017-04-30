@@ -65,13 +65,23 @@ function processing(){
 
     clearPopulationLayers();
 
-    addPopulationLayer(map, gradient1, id1);
-    addPopulationLayer(map, gradient2, id2);
+    if (id1) {
+        addPopulationLayer(map, gradient1, id1);
+        getAnimalInfo(id1, true);
+    }
+
+    if (id2) {
+        addPopulationLayer(map, gradient2, id2);
+        getAnimalInfo(id2, false);
+    }
 
     getFactors(id1, id2);
 }
 
 function getFactors(id1, id2){
+    if (!id1 || !id2)
+        return;
+
     var xhr = new XMLHttpRequest();
     xhr.open('GET', 'http://genetics-api.swarmer.me/biotic_factor?taxon1_id=' + id1 + '&taxon2_id=' + id2, true);
 
@@ -109,9 +119,6 @@ function getFactors(id1, id2){
         } else {
             factorsApp.factors = jsn;
         }
-
-        getAnimalInfo(id1, true);
-        getAnimalInfo(id2, false);
     }
 
     xhr.onerror = function() {

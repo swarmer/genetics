@@ -81,7 +81,10 @@
                     <input type="checkbox" :id="'cb-id-' + factor.id" :value="factor" v-model="selectedFactors" @click="showFactors()">
                     <label :for="'cb-id-' + factor.id">Select</label>
                 </div>
-                <button class="btn waves-effect waves-light" type="button" name="new-factor" @click="newFactor()">
+                <br>
+                <br>
+                <br>
+                <button class="btn waves-effect waves-light" type="button" name="new-factor" @click="newFactor()" style="margin-top: 50px;">
                     Add a new factor
                 </button>
             </section>
