@@ -56,7 +56,7 @@ function processing(){
     addPopulationLayer(map, gradient1, id1);
     addPopulationLayer(map, gradient2, id2);
 
-    getFactors(id1, id2);
+    //getFactors(id1, id2);
 }
 
 function getFactors(id1, id2){
@@ -74,8 +74,9 @@ function getFactors(id1, id2){
         var size = jsn.length;
 
         for (var i =0; i<size; i++){
-            inn +=
+            inn += '<li class="collection-item">name: ' + jsn[i]['name'] + ' marker_name: ' + jsn[i]['marker_name'] + '</li>';
         }
+        document.getElementById('ulFactors').innerHTML = inn;
     }
 
     xhr.onerror = function() {
