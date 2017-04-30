@@ -52,6 +52,6 @@ function initMap() {
         mapTypeId: 'satellite'
     });
 
-    addPopulationLayer(map, gradient1, 1);
-    addPopulationLayer(map, gradient2, 2);
+    //addPopulationLayer(map, gradient1, 1);
+    //addPopulationLayer(map, gradient2, 2);
 }

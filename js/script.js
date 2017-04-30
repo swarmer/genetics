@@ -11,19 +11,16 @@ function search(val, spiece) {
         xhr.onload = function() {
             text = this.responseText;
             jsn = JSON.parse(text);
-            //console.log(jsn[0]['english_name']);
-            //console.log(jsn.length);
+            console.log(jsn);
 
             document.getElementById('ul'+spiece).setAttribute('class', 'collection');
             document.getElementById('ul'+spiece).innerHTML = '';
-            //var inn = '<ul>';
             var inn = ''
             var size = jsn.length;
             if (size > 6)
                 size = 6;
             for (var i=0; i<size; i++){
-                //inn += '<li>' + jsn[i]['english_name'] + '</li>';
-                inn += '<li class="collection-item searchItem" onclick="selectItem(this,' + spiece + ')">' + jsn[i]['english_name']
+                inn += '<li id="' + jsn[i]['id'] + '" class="collection-item searchItem" onclick="selectItem(this,' + spiece + ')">' + jsn[i]['english_name']
                     + '</li>';
             }
             document.getElementById('ul'+spiece).innerHTML = inn;
@@ -49,4 +46,13 @@ function selectItem(item, spiece) {
     //document.getElementById(spiece.id).value = '';
     document.getElementById('ul'+spiece.id).innerHTML = '';
     document.getElementById('ul'+spiece.id).setAttribute('class', '');
+    document.getElementById(spiece.id).setAttribute('val', item.id);
+}
+
+function processing(){
+    var id1 = document.getElementById("firstSpiece").getAttribute("val");
+    var id2 = document.getElementById("secondSpiece").getAttribute("val");
+    clearPopulationLayers();
+    addPopulationLayer(map, gradient1, id1);
+    addPopulationLayer(map, gradient2, id2);
 }
