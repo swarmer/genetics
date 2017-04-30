@@ -45,7 +45,7 @@
               <br>
               <br>
               <button class="btn waves-effect waves-light" type="button" name="new-factor" @click="newFactor()" style="margin-top: 50px;">
-                  Add a new factor
+                  Add
               </button>
           </section>
       </div>
@@ -64,7 +64,7 @@
                     <h4 class="col s12">{{ taxon.english_name }}</h4>
                     <h5 class="col s12">{{ taxon.latin_name }}</h5>
 
-                    <img :src="taxon.thumbnail_url">
+                    <img :src="taxon.thumbnail_url" class="responsive-img">
 
                     <p>
                         <h3>Classification</h3>
@@ -81,7 +81,7 @@
                     <h4 class="col s12">{{ taxon.english_name }}</h4>
                     <h5 class="col s12">{{ taxon.latin_name }}</h5>
 
-                    <img :src="taxon.thumbnail_url">
+                    <img :src="taxon.thumbnail_url" class="responsive-img">
 
                     <p>
                         <h3>Classification</h3>
@@ -94,6 +94,11 @@
                         <h6 v-if="taxon.taxonomy.genus">Genus: {{ taxon.taxonomy.genus }}</h6>
                     </p>
                 </div>
+            </section>
+            <section id="phyl-section" class="col s4" hidden>
+                <h4 class="center-align col s12">Phylogenetic tree</h4>
+
+                <img id="tree-img" class="responsive-img">
             </section>
 
         </div>

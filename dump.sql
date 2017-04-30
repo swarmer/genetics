@@ -5,7 +5,7 @@
 -- Dumped from database version 9.6.2
 -- Dumped by pg_dump version 9.6.2
 
--- Started on 2017-04-30 10:54:15 +03
+-- Started on 2017-04-30 12:57:29 +03
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -25,7 +25,7 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- TOC entry 2434 (class 0 OID 0)
+-- TOC entry 2435 (class 0 OID 0)
 -- Dependencies: 1
 -- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
 --
@@ -74,7 +74,7 @@ CREATE SEQUENCE biotic_factors_id_seq
 ALTER TABLE biotic_factors_id_seq OWNER TO "genetics-api";
 
 --
--- TOC entry 2435 (class 0 OID 0)
+-- TOC entry 2436 (class 0 OID 0)
 -- Dependencies: 189
 -- Name: biotic_factors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genetics-api
 --
@@ -113,7 +113,7 @@ CREATE SEQUENCE observations_id_seq
 ALTER TABLE observations_id_seq OWNER TO "genetics-api";
 
 --
--- TOC entry 2436 (class 0 OID 0)
+-- TOC entry 2437 (class 0 OID 0)
 -- Dependencies: 187
 -- Name: observations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genetics-api
 --
@@ -145,7 +145,8 @@ CREATE TABLE taxons (
     english_name text,
     latin_name text,
     thumbnail_url text,
-    taxonomy jsonb DEFAULT '{}'::jsonb NOT NULL
+    taxonomy jsonb DEFAULT '{}'::jsonb NOT NULL,
+    gene text DEFAULT 'Cytochrome c'::text
 );
 
 
@@ -167,7 +168,7 @@ CREATE SEQUENCE taxons_id_seq
 ALTER TABLE taxons_id_seq OWNER TO "genetics-api";
 
 --
--- TOC entry 2437 (class 0 OID 0)
+-- TOC entry 2438 (class 0 OID 0)
 -- Dependencies: 185
 -- Name: taxons_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genetics-api
 --
@@ -176,7 +177,7 @@ ALTER SEQUENCE taxons_id_seq OWNED BY taxons.id;
 
 
 --
--- TOC entry 2289 (class 2604 OID 16416)
+-- TOC entry 2290 (class 2604 OID 16416)
 -- Name: biotic_factors id; Type: DEFAULT; Schema: public; Owner: genetics-api
 --
 
@@ -184,7 +185,7 @@ ALTER TABLE ONLY biotic_factors ALTER COLUMN id SET DEFAULT nextval('biotic_fact
 
 
 --
--- TOC entry 2288 (class 2604 OID 16403)
+-- TOC entry 2289 (class 2604 OID 16403)
 -- Name: observations id; Type: DEFAULT; Schema: public; Owner: genetics-api
 --
 
@@ -200,21 +201,21 @@ ALTER TABLE ONLY taxons ALTER COLUMN id SET DEFAULT nextval('taxons_id_seq'::reg
 
 
 --
--- TOC entry 2426 (class 0 OID 16413)
+-- TOC entry 2427 (class 0 OID 16413)
 -- Dependencies: 190
 -- Data for Name: biotic_factors; Type: TABLE DATA; Schema: public; Owner: genetics-api
 --
 
 COPY biotic_factors (id, name, marker_name, taxon2_id, description, taxon1_id, polyline, type) FROM stdin;
-1	Cold	\N	2	\N	1	[{"lat": 37.772, "lng": -122.214}, {"lat": 21.291, "lng": -157.821}, {"lat": -18.142, "lng": 178.431}, {"lat": -27.467, "lng": 153.027}]	abiotic
-2	Trump Wall	\N	2	\N	1	[{"lat": 37.772, "lng": -122.214}, {"lat": 21.291, "lng": -157.821}, {"lat": -18.142, "lng": 178.431}, {"lat": -27.467, "lng": 153.027}]	abiotic
 5	IDK	Ace3	2	\N	1	[{"lat": 37.772, "lng": -122.214}, {"lat": 21.291, "lng": -157.821}, {"lat": -18.142, "lng": 178.431}, {"lat": -27.467, "lng": 153.027}]	abiotic
 6	IDK2	Ace4	4	Hello	3	[{"lat": 37.772, "lng": -122.214}, {"lat": 21.291, "lng": -157.821}, {"lat": -18.142, "lng": 178.431}, {"lat": -27.467, "lng": 153.027}]	abiotic
+1	Cold	\N	2	\N	1	[{"lat": 47.51720069783942, "lng": -124.62890625}, {"lat": 47.04018214480667, "lng": -115.6640625}, {"lat": 48.922499263758255, "lng": -103.7109375}, {"lat": 48.10743118848039, "lng": -91.7578125}, {"lat": 45.460130637921004, "lng": -82.08984375}, {"lat": 44.715513732021336, "lng": -64.51171875}]	abiotic
+2	Trump Wall	\N	2	\N	1	[{"lat": 47.51720069783942, "lng": -124.62890625}, {"lat": 47.04018214480667, "lng": -115.6640625}, {"lat": 48.922499263758255, "lng": -103.7109375}, {"lat": 48.10743118848039, "lng": -91.7578125}, {"lat": 45.460130637921004, "lng": -82.08984375}, {"lat": 44.715513732021336, "lng": -64.51171875}]	abiotic
 \.
 
 
 --
--- TOC entry 2438 (class 0 OID 0)
+-- TOC entry 2439 (class 0 OID 0)
 -- Dependencies: 189
 -- Name: biotic_factors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genetics-api
 --
@@ -223,7 +224,7 @@ SELECT pg_catalog.setval('biotic_factors_id_seq', 9, true);
 
 
 --
--- TOC entry 2424 (class 0 OID 16400)
+-- TOC entry 2425 (class 0 OID 16400)
 -- Dependencies: 188
 -- Data for Name: observations; Type: TABLE DATA; Schema: public; Owner: genetics-api
 --
@@ -28175,7 +28176,7 @@ COPY observations (id, taxon_id, latitude, longitude) FROM stdin;
 
 
 --
--- TOC entry 2439 (class 0 OID 0)
+-- TOC entry 2440 (class 0 OID 0)
 -- Dependencies: 187
 -- Name: observations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genetics-api
 --
@@ -28184,44 +28185,50 @@ SELECT pg_catalog.setval('observations_id_seq', 27985, true);
 
 
 --
--- TOC entry 2427 (class 0 OID 16471)
+-- TOC entry 2428 (class 0 OID 16471)
 -- Dependencies: 191
 -- Data for Name: phylogenetic_images; Type: TABLE DATA; Schema: public; Owner: genetics-api
 --
 
 COPY phylogenetic_images (taxon1_id, taxon2_id, image_url) FROM stdin;
-1	2	https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcSUiun571cW-xZ02dAm6S84_T99omaXv5kv0c78Vz2FAjwYWKOXvb98t-w
+1	2	https://storage.googleapis.com/files.swarmer.me/images/bears.jpg
+3	4	https://storage.googleapis.com/files.swarmer.me/images/deer.jpg
+5	6	https://storage.googleapis.com/files.swarmer.me/images/turtles.jpg
+7	8	https://storage.googleapis.com/files.swarmer.me/images/picea.jpg
+9	10	https://storage.googleapis.com/files.swarmer.me/images/bees.jpg
+11	12	https://storage.googleapis.com/files.swarmer.me/images/pearls.jpg
+13	14	https://storage.googleapis.com/files.swarmer.me/images/sequoia.jpg
 \.
 
 
 --
--- TOC entry 2422 (class 0 OID 16389)
+-- TOC entry 2423 (class 0 OID 16389)
 -- Dependencies: 186
 -- Data for Name: taxons; Type: TABLE DATA; Schema: public; Owner: genetics-api
 --
 
-COPY taxons (id, english_name, latin_name, thumbnail_url, taxonomy) FROM stdin;
-12	Western pearlshell	Margaritifera falcata	\N	{"class": null, "genus": "Margaritifera", "order": "Unionoida", "family": "Margaritiferidae", "phylum": "Mollusca", "kingdom": "Animalia", "subphylum": "Bivalvia"}
-15	American Bison	Bison bison bison	https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/American_bison_k5680-1.jpg/440px-American_bison_k5680-1.jpg	{"class": "Mammalia", "genus": "Bison", "order": "Artiodactyla", "family": "Bovidae", "phylum": "Chordata", "kingdom": "Animalia", "subphylum": "Vertebrata"}
-3	Mule deer	Odocoileus hemionus	https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/2012-mule-deer-male.jpg/440px-2012-mule-deer-male.jpg	{"class": "Mammalia", "genus": "Odocoileus", "order": "Artiodactyla", "family": "Cervidae", "phylum": "Chordata", "kingdom": "Animalia", "subphylum": "Vertebrata"}
-4	White-tailed deer	Odocoileus virginianus	https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/White-tailed_deer.jpg/440px-White-tailed_deer.jpg	{"class": "Mammalia", "genus": "Odocoileus", "order": "Artiodactyla", "family": "Cervidae", "phylum": "Chordata", "kingdom": "Animalia", "subphylum": "Vertebrata"}
-1	American black bear	Ursus americanus	https://upload.wikimedia.org/wikipedia/commons/0/08/01_Schwarzb%C3%A4r.jpg	{"class": "Mammalia", "genus": "Ursus", "order": "Carnivora", "family": "Ursidae", "phylum": "Chordata", "kingdom": "Animalia", "subphylum": "Vertebrata"}
-2	Brown bear	Ursus arctos	https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/2010-kodiak-bear-1.jpg/440px-2010-kodiak-bear-1.jpg	{"class": "Mammalia", "genus": "Ursus", "order": "Carnivora", "family": "Ursidae", "phylum": "Chordata", "kingdom": "Animalia", "subphylum": "Vertebrata"}
-5	Central American Snapping Turtle	Chelydra rossignonii	https://static.inaturalist.org/photos/4668354/large.jpeg?1472141290	{"class": "Reptilia", "genus": "Chelydra", "order": "Testudines", "family": "Chelydridae", "phylum": "Chordata", "kingdom": "Animalia", "subphylum": "Vertebrata"}
-6	Common Snapping Turtle	Chelydra serpentina	https://farm4.staticflickr.com/3175/2850135743_563b1b7a3e.jpg	{"class": "Reptilia", "genus": "Chelydra", "order": "Testudines", "family": "Chelydridae", "phylum": "Chordata", "kingdom": "Animalia", "subphylum": "Vertebrata"}
-7	Sitka spruce	Picea sitchensis	https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/QuinaltSpruce_7246c.jpg/500px-QuinaltSpruce_7246c.jpg	{"class": "Pinopsida", "genus": "Picea", "order": "Pinales", "family": "Pinaceae", "phylum": "Tracheophyta", "kingdom": "Plantae", "subphylum": "Pinophyta"}
-8	Black spruce	Picea mariana	https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Black_spruce_stand_at_Arctic_Chalet%2C_Inuvik%2C_NT.jpg/440px-Black_spruce_stand_at_Arctic_Chalet%2C_Inuvik%2C_NT.jpg	{"class": "Pinopsida", "genus": "Picea", "order": "Pinales", "family": "Pinaceae", "phylum": "Tracheophyta", "kingdom": "Plantae", "subphylum": "Pinophyta"}
-9	American bumblebee	Bombus pensylvanicus	https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Bumblebee%2C_Albuquerque_PP_Sharp_Low.JPG/440px-Bumblebee%2C_Albuquerque_PP_Sharp_Low.JPG	{"class": "Insecta", "genus": "Bombus", "order": "Hymenoptera", "family": "Apidae", "phylum": "Arthropoda", "kingdom": "Animalia", "subphylum": "Hexapoda"}
-10	Common eastern bumblebee	Bombus impatiens	https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Bombus_impatiens%2C_f%2C_queen%2C_charles_co_%2818239590966%29.jpg/440px-Bombus_impatiens%2C_f%2C_queen%2C_charles_co_%2818239590966%29.jpg	{"class": "Insecta", "genus": "Bombus", "order": "Hymenoptera", "family": "Apidae", "phylum": "Arthropoda", "kingdom": "Animalia", "subphylum": "Hexapoda"}
-11	Freshwater pearl mussel	Margaritifera margaritifera	https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Margaritifera_margaritifera-buiten.jpg/440px-Margaritifera_margaritifera-buiten.jpg	{"class": null, "genus": "Margaritifera", "order": "Unionoida", "family": "Margaritiferidae", "phylum": "Mollusca", "kingdom": "Animalia", "subphylum": "Bivalvia"}
-16	Woods Bison	Bison bison ssp. athabascae	https://farm4.staticflickr.com/3510/3884993701_c1c5c3b6fd.jpg	{"class": "Mammalia", "genus": "Bison", "order": "Artiodactyla", "family": "Bovidae", "phylum": "Chordata", "kingdom": "Animalia", "subphylum": "Vertebrata"}
-13	Coast redwood	Sequoia sempervirens	https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/US_199_Redwood_Highway.jpg/440px-US_199_Redwood_Highway.jpg	{"class": "Pinopsida", "genus": "Sequoia", "order": "Pinales", "family": "Cupressaceae", "phylum": "Tracheophyta", "kingdom": "Plantae", "subphylum": "Pinophyta"}
-14	Giant sequoia	Sequoiadendron giganteum	https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Grizzly_Giant_Mariposa_Grove.jpg/440px-Grizzly_Giant_Mariposa_Grove.jpg	{"class": "Pinopsida", "genus": "Sequoiadendron", "order": "Pinales", "family": "Cupressaceae", "phylum": "Tracheophyta", "kingdom": "Plantae", "subphylum": "Pinophyta"}
+COPY taxons (id, english_name, latin_name, thumbnail_url, taxonomy, gene) FROM stdin;
+12	Western pearlshell	Margaritifera falcata	\N	{"class": null, "genus": "Margaritifera", "order": "Unionoida", "family": "Margaritiferidae", "phylum": "Mollusca", "kingdom": "Animalia", "subphylum": "Bivalvia"}	Cytochrome c
+15	American Bison	Bison bison bison	https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/American_bison_k5680-1.jpg/440px-American_bison_k5680-1.jpg	{"class": "Mammalia", "genus": "Bison", "order": "Artiodactyla", "family": "Bovidae", "phylum": "Chordata", "kingdom": "Animalia", "subphylum": "Vertebrata"}	Cytochrome c
+3	Mule deer	Odocoileus hemionus	https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/2012-mule-deer-male.jpg/440px-2012-mule-deer-male.jpg	{"class": "Mammalia", "genus": "Odocoileus", "order": "Artiodactyla", "family": "Cervidae", "phylum": "Chordata", "kingdom": "Animalia", "subphylum": "Vertebrata"}	Cytochrome c
+4	White-tailed deer	Odocoileus virginianus	https://upload.wikimedia.org/wikipedia/commons/thumb/b/b7/White-tailed_deer.jpg/440px-White-tailed_deer.jpg	{"class": "Mammalia", "genus": "Odocoileus", "order": "Artiodactyla", "family": "Cervidae", "phylum": "Chordata", "kingdom": "Animalia", "subphylum": "Vertebrata"}	Cytochrome c
+1	American black bear	Ursus americanus	https://upload.wikimedia.org/wikipedia/commons/0/08/01_Schwarzb%C3%A4r.jpg	{"class": "Mammalia", "genus": "Ursus", "order": "Carnivora", "family": "Ursidae", "phylum": "Chordata", "kingdom": "Animalia", "subphylum": "Vertebrata"}	Cytochrome c
+2	Brown bear	Ursus arctos	https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/2010-kodiak-bear-1.jpg/440px-2010-kodiak-bear-1.jpg	{"class": "Mammalia", "genus": "Ursus", "order": "Carnivora", "family": "Ursidae", "phylum": "Chordata", "kingdom": "Animalia", "subphylum": "Vertebrata"}	Cytochrome c
+5	Central American Snapping Turtle	Chelydra rossignonii	https://static.inaturalist.org/photos/4668354/large.jpeg?1472141290	{"class": "Reptilia", "genus": "Chelydra", "order": "Testudines", "family": "Chelydridae", "phylum": "Chordata", "kingdom": "Animalia", "subphylum": "Vertebrata"}	Cytochrome c
+6	Common Snapping Turtle	Chelydra serpentina	https://farm4.staticflickr.com/3175/2850135743_563b1b7a3e.jpg	{"class": "Reptilia", "genus": "Chelydra", "order": "Testudines", "family": "Chelydridae", "phylum": "Chordata", "kingdom": "Animalia", "subphylum": "Vertebrata"}	Cytochrome c
+7	Sitka spruce	Picea sitchensis	https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/QuinaltSpruce_7246c.jpg/500px-QuinaltSpruce_7246c.jpg	{"class": "Pinopsida", "genus": "Picea", "order": "Pinales", "family": "Pinaceae", "phylum": "Tracheophyta", "kingdom": "Plantae", "subphylum": "Pinophyta"}	Cytochrome c
+8	Black spruce	Picea mariana	https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Black_spruce_stand_at_Arctic_Chalet%2C_Inuvik%2C_NT.jpg/440px-Black_spruce_stand_at_Arctic_Chalet%2C_Inuvik%2C_NT.jpg	{"class": "Pinopsida", "genus": "Picea", "order": "Pinales", "family": "Pinaceae", "phylum": "Tracheophyta", "kingdom": "Plantae", "subphylum": "Pinophyta"}	Cytochrome c
+9	American bumblebee	Bombus pensylvanicus	https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Bumblebee%2C_Albuquerque_PP_Sharp_Low.JPG/440px-Bumblebee%2C_Albuquerque_PP_Sharp_Low.JPG	{"class": "Insecta", "genus": "Bombus", "order": "Hymenoptera", "family": "Apidae", "phylum": "Arthropoda", "kingdom": "Animalia", "subphylum": "Hexapoda"}	Cytochrome c
+10	Common eastern bumblebee	Bombus impatiens	https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Bombus_impatiens%2C_f%2C_queen%2C_charles_co_%2818239590966%29.jpg/440px-Bombus_impatiens%2C_f%2C_queen%2C_charles_co_%2818239590966%29.jpg	{"class": "Insecta", "genus": "Bombus", "order": "Hymenoptera", "family": "Apidae", "phylum": "Arthropoda", "kingdom": "Animalia", "subphylum": "Hexapoda"}	Cytochrome c
+11	Freshwater pearl mussel	Margaritifera margaritifera	https://upload.wikimedia.org/wikipedia/commons/thumb/e/ed/Margaritifera_margaritifera-buiten.jpg/440px-Margaritifera_margaritifera-buiten.jpg	{"class": null, "genus": "Margaritifera", "order": "Unionoida", "family": "Margaritiferidae", "phylum": "Mollusca", "kingdom": "Animalia", "subphylum": "Bivalvia"}	Cytochrome c
+16	Woods Bison	Bison bison ssp. athabascae	https://farm4.staticflickr.com/3510/3884993701_c1c5c3b6fd.jpg	{"class": "Mammalia", "genus": "Bison", "order": "Artiodactyla", "family": "Bovidae", "phylum": "Chordata", "kingdom": "Animalia", "subphylum": "Vertebrata"}	Cytochrome c
+13	Coast redwood	Sequoia sempervirens	https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/US_199_Redwood_Highway.jpg/440px-US_199_Redwood_Highway.jpg	{"class": "Pinopsida", "genus": "Sequoia", "order": "Pinales", "family": "Cupressaceae", "phylum": "Tracheophyta", "kingdom": "Plantae", "subphylum": "Pinophyta"}	Cytochrome c
+14	Giant sequoia	Sequoiadendron giganteum	https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Grizzly_Giant_Mariposa_Grove.jpg/440px-Grizzly_Giant_Mariposa_Grove.jpg	{"class": "Pinopsida", "genus": "Sequoiadendron", "order": "Pinales", "family": "Cupressaceae", "phylum": "Tracheophyta", "kingdom": "Plantae", "subphylum": "Pinophyta"}	Cytochrome c
 \.
 
 
 --
--- TOC entry 2440 (class 0 OID 0)
+-- TOC entry 2441 (class 0 OID 0)
 -- Dependencies: 185
 -- Name: taxons_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genetics-api
 --
@@ -28230,7 +28237,7 @@ SELECT pg_catalog.setval('taxons_id_seq', 16, true);
 
 
 --
--- TOC entry 2298 (class 2606 OID 16421)
+-- TOC entry 2299 (class 2606 OID 16421)
 -- Name: biotic_factors biotic_factors_pkey; Type: CONSTRAINT; Schema: public; Owner: genetics-api
 --
 
@@ -28239,7 +28246,7 @@ ALTER TABLE ONLY biotic_factors
 
 
 --
--- TOC entry 2296 (class 2606 OID 16405)
+-- TOC entry 2297 (class 2606 OID 16405)
 -- Name: observations observations_pkey; Type: CONSTRAINT; Schema: public; Owner: genetics-api
 --
 
@@ -28248,7 +28255,7 @@ ALTER TABLE ONLY observations
 
 
 --
--- TOC entry 2294 (class 2606 OID 16397)
+-- TOC entry 2295 (class 2606 OID 16397)
 -- Name: taxons taxons_pkey; Type: CONSTRAINT; Schema: public; Owner: genetics-api
 --
 
@@ -28257,7 +28264,7 @@ ALTER TABLE ONLY taxons
 
 
 --
--- TOC entry 2301 (class 2606 OID 16449)
+-- TOC entry 2302 (class 2606 OID 16449)
 -- Name: biotic_factors biotic_factors___taxon1_id__fk; Type: FK CONSTRAINT; Schema: public; Owner: genetics-api
 --
 
@@ -28266,7 +28273,7 @@ ALTER TABLE ONLY biotic_factors
 
 
 --
--- TOC entry 2300 (class 2606 OID 16427)
+-- TOC entry 2301 (class 2606 OID 16427)
 -- Name: biotic_factors biotic_factors___taxon2_id__fk; Type: FK CONSTRAINT; Schema: public; Owner: genetics-api
 --
 
@@ -28275,7 +28282,7 @@ ALTER TABLE ONLY biotic_factors
 
 
 --
--- TOC entry 2299 (class 2606 OID 16406)
+-- TOC entry 2300 (class 2606 OID 16406)
 -- Name: observations observations___taxon_id__fk; Type: FK CONSTRAINT; Schema: public; Owner: genetics-api
 --
 
@@ -28284,7 +28291,7 @@ ALTER TABLE ONLY observations
 
 
 --
--- TOC entry 2302 (class 2606 OID 16477)
+-- TOC entry 2303 (class 2606 OID 16477)
 -- Name: phylogenetic_images phylogenetic_images___taxon1_id__fk; Type: FK CONSTRAINT; Schema: public; Owner: genetics-api
 --
 
@@ -28293,7 +28300,7 @@ ALTER TABLE ONLY phylogenetic_images
 
 
 --
--- TOC entry 2303 (class 2606 OID 16482)
+-- TOC entry 2304 (class 2606 OID 16482)
 -- Name: phylogenetic_images phylogenetic_images___taxon2_id__fk; Type: FK CONSTRAINT; Schema: public; Owner: genetics-api
 --
 
@@ -28301,7 +28308,7 @@ ALTER TABLE ONLY phylogenetic_images
     ADD CONSTRAINT phylogenetic_images___taxon2_id__fk FOREIGN KEY (taxon2_id) REFERENCES taxons(id);
 
 
--- Completed on 2017-04-30 10:54:15 +03
+-- Completed on 2017-04-30 12:57:30 +03
 
 --
 -- PostgreSQL database dump complete
