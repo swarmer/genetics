@@ -36,7 +36,7 @@ class PhylogeneticImageResource(object):
             )
             rows = cursor.fetchall()
             if not rows:
-                result = {'image_url': None}
+                result = {'image_url': 'https://storage.googleapis.com/files.swarmer.me/images/all.jpg'}
             else:
                 result = dict(rows[0])
 
