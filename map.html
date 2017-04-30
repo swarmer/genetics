@@ -15,12 +15,12 @@
           <form class="col s10 offset-s1">
               <!--<h3 class="col s12 light center-align">Enter two spieces</h3>-->
               <div class="input-field col s12 l5">
-                  <label for="firstSpiece">Spiece One</label>
+                  <label for="firstSpiece">Species One</label>
                   <input oninput="search(this.value, 'firstSpiece')" onblur="clearUl('firstSpiece')"  id="firstSpiece" type="text"/>
                   <ul id="ulfirstSpiece"></ul>
               </div>
               <div class="input-field col s12 l5">
-                  <label for="secondSpiece">Spiece One</label>
+                  <label for="secondSpiece">Species One</label>
                   <input oninput="search(this.value, 'secondSpiece')" onblur="clearUl('secondSpiece')" id="secondSpiece" type="text"/>
                   <ul id="ulsecondSpiece"></ul>
               </div>
@@ -34,7 +34,17 @@
 
   <div id="map"></div>
   <div id="descSection">
-
+    <div class="row">
+        <div class="col s12">
+            <section class="col s8"> <!-- for table -->
+                <div></div>
+                <div></div>
+            </section>
+            <section id="factors" class="col s4">
+                <h5 ></h5>
+            </section>
+        </div>
+    </div>
   </div>
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC8ceytJzS5je9WebT_pf3avncB92B0j7s&libraries=visualization&callback=initMap">

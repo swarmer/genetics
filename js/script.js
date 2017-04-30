@@ -55,4 +55,34 @@ function processing(){
     clearPopulationLayers();
     addPopulationLayer(map, gradient1, id1);
     addPopulationLayer(map, gradient2, id2);
+
+    getFactors(id1, id2);
 }
+
+function getFactors(id1, id2){
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'http://genetics-api.swarmer.me/biotic_factor?taxon1_id=' + id1 + '&taxon2_id=' + id2, true);
+
+    var text;
+    var jsn;
+    xhr.onload = function() {
+        text = this.responseText;
+        jsn = JSON.parse(text);
+
+        var f = document.getElementById('factors');
+        var inn = ''
+        var size = jsn.length;
+
+        for (var i =0; i<size; i++){
+            inn +=
+        }
+    }
+
+    xhr.onerror = function() {
+        alert( 'Ошибка ' + this.status );
+    }
+
+    xhr.send();
+}
+
+//http://genetics-api.swarmer.me/biotic_factor?taxon1_id=1&taxon2_id=2
