@@ -39,6 +39,9 @@ function search(val, spiece) {
 
 
 function clearUl(spiece) {
+    if (document.getElementById(spiece).value == ''){
+        document.getElementById(spiece).setAttribute('val', '');
+    }
             // document.getElementById(spiece).value = '';
             // document.getElementById('ul'+spiece).innerHTML = '';
             // document.getElementById('ul'+spiece).setAttribute('class', '');
@@ -56,20 +59,25 @@ var globalId1;
 var globalId2;
 
 function processing(){
-    var id1 = document.getElementById("firstSpiece").getAttribute("val");
-    var id2 = document.getElementById("secondSpiece").getAttribute("val");
+    var id1 = null;
+    var id2 = null;
+    id1 = document.getElementById("firstSpiece").getAttribute("val");
+    id2 = document.getElementById("secondSpiece").getAttribute("val");
+
+    console.log(id1);
+    console.log(id2);
 
     globalId1 = id1;
     globalId2 = id2;
 
     clearPopulationLayers();
 
-    if (id1) {
+    if (id1 != null) {
         addPopulationLayer(map, gradient1, id1);
         getAnimalInfo(id1, true);
     }
 
-    if (id2) {
+    if (id2 != null) {
         addPopulationLayer(map, gradient2, id2);
         getAnimalInfo(id2, false);
     }
