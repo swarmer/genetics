@@ -81,6 +81,12 @@ function getFactors(id1, id2){
     if (!id1 || !id2)
         return;
 
+    $.get("http://genetics-api.swarmer.me/phylogenetic_image/?taxon1_id=" + id1 + "&taxon2_id=" + id2, function(result) {
+        var url = result.image_url;
+        var image = getElementById('tree-img');
+        image.setAttribute('href', url);
+    });
+
     var xhr = new XMLHttpRequest();
     xhr.open('GET', 'http://genetics-api.swarmer.me/biotic_factor?taxon1_id=' + id1 + '&taxon2_id=' + id2, true);
 
