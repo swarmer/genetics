@@ -6,8 +6,23 @@ RUN apt-get update -y && \
     apt-get install -y \
         python3-dev \
         python3-pip \
-        unzip
+        unzip \
+        bzip2 \
+        wget \
+        curl \
+        pkg-config \
+        libgraphviz-dev
 
+# install clustalo
+RUN wget -O /clustalo http://www.clustal.org/omega/clustalo-1.2.4-Ubuntu-x86_64
+RUN chmod +x /clustalo
+
+# Install anaconda with required packages
+RUN wget -O /tmp/anaconda_install https://repo.continuum.io/archive/Anaconda3-4.3.1-Linux-x86_64.sh
+RUN bash /tmp/anaconda3_install -b -p /anaconda3
+RUN rm /tmp/anaconda_install
+RUN /anaconda3/bin/conda upgrade --all -y
+RUN /anaconda3/bin/conda install biopython -y
 
 # Unpack the application code
 COPY build/genetics-api.zip /tmp/genetics-api.zip
