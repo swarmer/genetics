@@ -20,7 +20,7 @@ RUN chmod +x /clustalo
 # Install anaconda with required packages
 RUN wget -O /tmp/anaconda3_install https://repo.continuum.io/archive/Anaconda3-4.3.1-Linux-x86_64.sh
 RUN bash /tmp/anaconda3_install -b -p /anaconda3
-RUN rm /tmp/anaconda_install
+RUN rm /tmp/anaconda3_install
 RUN /anaconda3/bin/conda upgrade --all -y
 RUN /anaconda3/bin/conda install biopython -y
 
