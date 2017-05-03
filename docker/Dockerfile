@@ -23,6 +23,7 @@ RUN bash /tmp/anaconda3_install -b -p /anaconda3
 RUN rm /tmp/anaconda3_install
 RUN /anaconda3/bin/conda upgrade --all -y
 RUN /anaconda3/bin/conda install biopython -y
+RUN /anaconda3/bin/pip install pygraphviz
 
 # Unpack the application code
 COPY build/genetics-api.zip /tmp/genetics-api.zip
