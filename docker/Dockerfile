@@ -11,7 +11,8 @@ RUN apt-get update -y && \
         wget \
         curl \
         pkg-config \
-        libgraphviz-dev
+        libgraphviz-dev \
+        graphviz
 
 # install clustalo
 RUN wget -O /clustalo http://www.clustal.org/omega/clustalo-1.2.4-Ubuntu-x86_64
