@@ -20,7 +20,7 @@ var gradient2 = [
 ];
 
 function addPopulationLayer(map, gradient, taxonId) {
-    $.get("http://genetics-api.swarmer.me/taxon/" + taxonId.toString() + "?observations=true", function(result) {
+    $.get("http://genetics-api2.swarmer.me/taxon/" + taxonId.toString() + "?observations=true", function(result) {
         var data = [];
         result.observations.forEach(function(observation) {
             data.push(new google.maps.LatLng(observation.latitude, observation.longitude));
@@ -104,7 +104,7 @@ function initMap() {
         console.log(data);
         $.ajax({
             type: 'POST',
-            url: 'http://genetics-api.swarmer.me/biotic_factor',
+            url: 'http://genetics-api2.swarmer.me/biotic_factor',
             data: JSON.stringify(data),
             contentType: "application/json",
             dataType: 'json'
