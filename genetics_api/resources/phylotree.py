@@ -84,6 +84,7 @@ def get_tree_bytes(pairs):
         with open(tree_desc_path, 'w') as tree_desc_file:
             tree_desc_file.write(tree_desc)
 
+        import pudb; pu.db
         draw_tree(tree_desc_path, img_path)
 
         with open(img_path, 'rb') as img_file:
