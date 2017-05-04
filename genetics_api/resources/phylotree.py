@@ -112,7 +112,7 @@ class PhylotreeResource(object):
                 '''
                     SELECT latin_name, sequence
                     FROM taxons
-                    WHERE id in %(taxon_ids);
+                    WHERE id in %(taxon_ids)s;
                 ''',
                 {'taxon_ids': taxon_ids},
             )
