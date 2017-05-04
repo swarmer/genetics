@@ -28,10 +28,12 @@ function addPopulationLayer(map, gradient, taxonId) {
 
         var heatmap = new google.maps.visualization.HeatmapLayer({
             map: map,
-            data: data
+            data: data,
+            dissipating: false,
+            opacity: 0.5,
         });
         heatmap.set('gradient', gradient);
-        heatmap.set('radius', 40);
+        heatmap.set('radius', 5);
 
         populations.push(heatmap);
     });
@@ -73,7 +75,8 @@ function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 3,
         center: {lat: 37.775, lng: -122.434},
-        mapTypeId: 'satellite'
+        mapTypeId: 'satellite',
+        maxZoom: 5,
     });
 
     drawingManager = new google.maps.drawing.DrawingManager({

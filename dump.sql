@@ -2,14 +2,11 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 9.6.2
--- Dumped by pg_dump version 9.6.2
-
--- Started on 2017-04-30 12:57:29 +03
+-- Dumped from database version 9.5.6
+-- Dumped by pg_dump version 9.5.6
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
-SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -17,7 +14,6 @@ SET client_min_messages = warning;
 SET row_security = off;
 
 --
--- TOC entry 1 (class 3079 OID 12655)
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
 --
 
@@ -25,8 +21,6 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- TOC entry 2435 (class 0 OID 0)
--- Dependencies: 1
 -- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
 --
 
@@ -40,7 +34,6 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- TOC entry 190 (class 1259 OID 16413)
 -- Name: biotic_factors; Type: TABLE; Schema: public; Owner: genetics-api
 --
 
@@ -59,7 +52,6 @@ CREATE TABLE biotic_factors (
 ALTER TABLE biotic_factors OWNER TO "genetics-api";
 
 --
--- TOC entry 189 (class 1259 OID 16411)
 -- Name: biotic_factors_id_seq; Type: SEQUENCE; Schema: public; Owner: genetics-api
 --
 
@@ -74,8 +66,6 @@ CREATE SEQUENCE biotic_factors_id_seq
 ALTER TABLE biotic_factors_id_seq OWNER TO "genetics-api";
 
 --
--- TOC entry 2436 (class 0 OID 0)
--- Dependencies: 189
 -- Name: biotic_factors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genetics-api
 --
 
@@ -83,7 +73,6 @@ ALTER SEQUENCE biotic_factors_id_seq OWNED BY biotic_factors.id;
 
 
 --
--- TOC entry 188 (class 1259 OID 16400)
 -- Name: observations; Type: TABLE; Schema: public; Owner: genetics-api
 --
 
@@ -98,7 +87,6 @@ CREATE TABLE observations (
 ALTER TABLE observations OWNER TO "genetics-api";
 
 --
--- TOC entry 187 (class 1259 OID 16398)
 -- Name: observations_id_seq; Type: SEQUENCE; Schema: public; Owner: genetics-api
 --
 
@@ -113,8 +101,6 @@ CREATE SEQUENCE observations_id_seq
 ALTER TABLE observations_id_seq OWNER TO "genetics-api";
 
 --
--- TOC entry 2437 (class 0 OID 0)
--- Dependencies: 187
 -- Name: observations_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genetics-api
 --
 
@@ -122,7 +108,6 @@ ALTER SEQUENCE observations_id_seq OWNED BY observations.id;
 
 
 --
--- TOC entry 191 (class 1259 OID 16471)
 -- Name: phylogenetic_images; Type: TABLE; Schema: public; Owner: genetics-api
 --
 
@@ -136,7 +121,6 @@ CREATE TABLE phylogenetic_images (
 ALTER TABLE phylogenetic_images OWNER TO "genetics-api";
 
 --
--- TOC entry 186 (class 1259 OID 16389)
 -- Name: taxons; Type: TABLE; Schema: public; Owner: genetics-api
 --
 
@@ -153,7 +137,6 @@ CREATE TABLE taxons (
 ALTER TABLE taxons OWNER TO "genetics-api";
 
 --
--- TOC entry 185 (class 1259 OID 16387)
 -- Name: taxons_id_seq; Type: SEQUENCE; Schema: public; Owner: genetics-api
 --
 
@@ -168,8 +151,6 @@ CREATE SEQUENCE taxons_id_seq
 ALTER TABLE taxons_id_seq OWNER TO "genetics-api";
 
 --
--- TOC entry 2438 (class 0 OID 0)
--- Dependencies: 185
 -- Name: taxons_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: genetics-api
 --
 
@@ -177,32 +158,27 @@ ALTER SEQUENCE taxons_id_seq OWNED BY taxons.id;
 
 
 --
--- TOC entry 2290 (class 2604 OID 16416)
--- Name: biotic_factors id; Type: DEFAULT; Schema: public; Owner: genetics-api
+-- Name: id; Type: DEFAULT; Schema: public; Owner: genetics-api
 --
 
 ALTER TABLE ONLY biotic_factors ALTER COLUMN id SET DEFAULT nextval('biotic_factors_id_seq'::regclass);
 
 
 --
--- TOC entry 2289 (class 2604 OID 16403)
--- Name: observations id; Type: DEFAULT; Schema: public; Owner: genetics-api
+-- Name: id; Type: DEFAULT; Schema: public; Owner: genetics-api
 --
 
 ALTER TABLE ONLY observations ALTER COLUMN id SET DEFAULT nextval('observations_id_seq'::regclass);
 
 
 --
--- TOC entry 2286 (class 2604 OID 16392)
--- Name: taxons id; Type: DEFAULT; Schema: public; Owner: genetics-api
+-- Name: id; Type: DEFAULT; Schema: public; Owner: genetics-api
 --
 
 ALTER TABLE ONLY taxons ALTER COLUMN id SET DEFAULT nextval('taxons_id_seq'::regclass);
 
 
 --
--- TOC entry 2427 (class 0 OID 16413)
--- Dependencies: 190
 -- Data for Name: biotic_factors; Type: TABLE DATA; Schema: public; Owner: genetics-api
 --
 
@@ -210,22 +186,19 @@ COPY biotic_factors (id, name, marker_name, taxon2_id, description, taxon1_id, p
 5	IDK	Ace3	2	\N	1	[{"lat": 37.772, "lng": -122.214}, {"lat": 21.291, "lng": -157.821}, {"lat": -18.142, "lng": 178.431}, {"lat": -27.467, "lng": 153.027}]	abiotic
 6	IDK2	Ace4	4	Hello	3	[{"lat": 37.772, "lng": -122.214}, {"lat": 21.291, "lng": -157.821}, {"lat": -18.142, "lng": 178.431}, {"lat": -27.467, "lng": 153.027}]	abiotic
 1	Cold	\N	2	\N	1	[{"lat": 47.51720069783942, "lng": -124.62890625}, {"lat": 47.04018214480667, "lng": -115.6640625}, {"lat": 48.922499263758255, "lng": -103.7109375}, {"lat": 48.10743118848039, "lng": -91.7578125}, {"lat": 45.460130637921004, "lng": -82.08984375}, {"lat": 44.715513732021336, "lng": -64.51171875}]	abiotic
-2	Trump Wall	\N	2	\N	1	[{"lat": 47.51720069783942, "lng": -124.62890625}, {"lat": 47.04018214480667, "lng": -115.6640625}, {"lat": 48.922499263758255, "lng": -103.7109375}, {"lat": 48.10743118848039, "lng": -91.7578125}, {"lat": 45.460130637921004, "lng": -82.08984375}, {"lat": 44.715513732021336, "lng": -64.51171875}]	abiotic
+10	People with gunpowder	Cytochrome c	16	\N	15	[]	abiotic
+2	Trump Wall	\N	2	\N	1	[{"lat": 47.51720069783942, "lng": -124.62890625}, {"lat": 47.04018214480667, "lng": -115.6640625}, {"lat": 48.922499263758255, "lng": -103.7109375}, {"lat": 48.10743118848039, "lng": -91.7578125}, {"lat": 45.460130637921004, "lng": -82.08984375}, {"lat": 44.715513732021336, "lng": -64.51171875}]	anthropogenic
 \.
 
 
 --
--- TOC entry 2439 (class 0 OID 0)
--- Dependencies: 189
 -- Name: biotic_factors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genetics-api
 --
 
-SELECT pg_catalog.setval('biotic_factors_id_seq', 9, true);
+SELECT pg_catalog.setval('biotic_factors_id_seq', 13, true);
 
 
 --
--- TOC entry 2425 (class 0 OID 16400)
--- Dependencies: 188
 -- Data for Name: observations; Type: TABLE DATA; Schema: public; Owner: genetics-api
 --
 
@@ -28176,8 +28149,6 @@ COPY observations (id, taxon_id, latitude, longitude) FROM stdin;
 
 
 --
--- TOC entry 2440 (class 0 OID 0)
--- Dependencies: 187
 -- Name: observations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genetics-api
 --
 
@@ -28185,8 +28156,6 @@ SELECT pg_catalog.setval('observations_id_seq', 27985, true);
 
 
 --
--- TOC entry 2428 (class 0 OID 16471)
--- Dependencies: 191
 -- Data for Name: phylogenetic_images; Type: TABLE DATA; Schema: public; Owner: genetics-api
 --
 
@@ -28202,8 +28171,6 @@ COPY phylogenetic_images (taxon1_id, taxon2_id, image_url) FROM stdin;
 
 
 --
--- TOC entry 2423 (class 0 OID 16389)
--- Dependencies: 186
 -- Data for Name: taxons; Type: TABLE DATA; Schema: public; Owner: genetics-api
 --
 
@@ -28228,8 +28195,6 @@ COPY taxons (id, english_name, latin_name, thumbnail_url, taxonomy, gene) FROM s
 
 
 --
--- TOC entry 2441 (class 0 OID 0)
--- Dependencies: 185
 -- Name: taxons_id_seq; Type: SEQUENCE SET; Schema: public; Owner: genetics-api
 --
 
@@ -28237,8 +28202,7 @@ SELECT pg_catalog.setval('taxons_id_seq', 16, true);
 
 
 --
--- TOC entry 2299 (class 2606 OID 16421)
--- Name: biotic_factors biotic_factors_pkey; Type: CONSTRAINT; Schema: public; Owner: genetics-api
+-- Name: biotic_factors_pkey; Type: CONSTRAINT; Schema: public; Owner: genetics-api
 --
 
 ALTER TABLE ONLY biotic_factors
@@ -28246,8 +28210,7 @@ ALTER TABLE ONLY biotic_factors
 
 
 --
--- TOC entry 2297 (class 2606 OID 16405)
--- Name: observations observations_pkey; Type: CONSTRAINT; Schema: public; Owner: genetics-api
+-- Name: observations_pkey; Type: CONSTRAINT; Schema: public; Owner: genetics-api
 --
 
 ALTER TABLE ONLY observations
@@ -28255,8 +28218,7 @@ ALTER TABLE ONLY observations
 
 
 --
--- TOC entry 2295 (class 2606 OID 16397)
--- Name: taxons taxons_pkey; Type: CONSTRAINT; Schema: public; Owner: genetics-api
+-- Name: taxons_pkey; Type: CONSTRAINT; Schema: public; Owner: genetics-api
 --
 
 ALTER TABLE ONLY taxons
@@ -28264,8 +28226,7 @@ ALTER TABLE ONLY taxons
 
 
 --
--- TOC entry 2302 (class 2606 OID 16449)
--- Name: biotic_factors biotic_factors___taxon1_id__fk; Type: FK CONSTRAINT; Schema: public; Owner: genetics-api
+-- Name: biotic_factors___taxon1_id__fk; Type: FK CONSTRAINT; Schema: public; Owner: genetics-api
 --
 
 ALTER TABLE ONLY biotic_factors
@@ -28273,8 +28234,7 @@ ALTER TABLE ONLY biotic_factors
 
 
 --
--- TOC entry 2301 (class 2606 OID 16427)
--- Name: biotic_factors biotic_factors___taxon2_id__fk; Type: FK CONSTRAINT; Schema: public; Owner: genetics-api
+-- Name: biotic_factors___taxon2_id__fk; Type: FK CONSTRAINT; Schema: public; Owner: genetics-api
 --
 
 ALTER TABLE ONLY biotic_factors
@@ -28282,8 +28242,7 @@ ALTER TABLE ONLY biotic_factors
 
 
 --
--- TOC entry 2300 (class 2606 OID 16406)
--- Name: observations observations___taxon_id__fk; Type: FK CONSTRAINT; Schema: public; Owner: genetics-api
+-- Name: observations___taxon_id__fk; Type: FK CONSTRAINT; Schema: public; Owner: genetics-api
 --
 
 ALTER TABLE ONLY observations
@@ -28291,8 +28250,7 @@ ALTER TABLE ONLY observations
 
 
 --
--- TOC entry 2303 (class 2606 OID 16477)
--- Name: phylogenetic_images phylogenetic_images___taxon1_id__fk; Type: FK CONSTRAINT; Schema: public; Owner: genetics-api
+-- Name: phylogenetic_images___taxon1_id__fk; Type: FK CONSTRAINT; Schema: public; Owner: genetics-api
 --
 
 ALTER TABLE ONLY phylogenetic_images
@@ -28300,15 +28258,22 @@ ALTER TABLE ONLY phylogenetic_images
 
 
 --
--- TOC entry 2304 (class 2606 OID 16482)
--- Name: phylogenetic_images phylogenetic_images___taxon2_id__fk; Type: FK CONSTRAINT; Schema: public; Owner: genetics-api
+-- Name: phylogenetic_images___taxon2_id__fk; Type: FK CONSTRAINT; Schema: public; Owner: genetics-api
 --
 
 ALTER TABLE ONLY phylogenetic_images
     ADD CONSTRAINT phylogenetic_images___taxon2_id__fk FOREIGN KEY (taxon2_id) REFERENCES taxons(id);
 
 
--- Completed on 2017-04-30 12:57:30 +03
+--
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
 
 --
 -- PostgreSQL database dump complete

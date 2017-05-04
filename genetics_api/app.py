@@ -1,5 +1,6 @@
 import falcon
 
+from . import patches
 from .resources import BioticFactorResource, TaxonResource, PhylogeneticImageResource
 
 
