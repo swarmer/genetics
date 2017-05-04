@@ -1,4 +1,5 @@
 import contextlib
+import json
 import os
 import random
 import requests
@@ -6,6 +7,12 @@ import string
 import subprocess
 import tempfile
 import time
+
+import falcon
+import psycopg2.extras
+
+from .utils import set_json_response
+from genetics_api.db import connect
 
 from Bio import Phylo
 import pylab
@@ -94,3 +101,30 @@ def get_tree_bytes(pairs):
 def draw_tree(input_path, output_path):
     tree = Phylo.read(input_path, 'newick')
     pylab.savefig(output_path)
+
+
+class PhylotreeResource(object):
+    def on_get(self, req, resp):
+        taxon_ids = req.get_param_as_list('taxon_ids', transform=int, required=True)
+
+        with connect() as connection, connection.cursor(cursor_factory=psycopg2.extras.DictCursor) as cursor:
+            cursor.execute(
+                '''
+                    SELECT latin_name, sequence
+                    FROM taxons
+                    WHERE id in %(taxon_ids);
+                ''',
+                {'taxon_ids': taxon_ids},
+            )
+            rows = cursor.fetchall()
+            if not rows:
+                raise falcon.HTTPNotFound()
+
+            png_bytes = get_tree_bytes(
+                (row['latin_name'], row['sequence'])
+                for row in rows
+            )
+
+            resp.body = png_bytes
+            resp.content_type = 'image/png'
+            resp.status = falcon.HTTP_200
