@@ -58,10 +58,6 @@ function clearUl(spiece) {
     if (document.getElementById(spiece).value == ''){
         document.getElementById(spiece).setAttribute('val', '');
     }
-            // document.getElementById(spiece).value = '';
-            // document.getElementById('ul'+spiece).innerHTML = '';
-            // document.getElementById('ul'+spiece).setAttribute('class', '');
-
 }
 
 
@@ -72,32 +68,18 @@ function selectItem(item, spiece) {
     document.getElementById(spiece.id).value = '';
     var eName = document.getElementById(item.id).getAttribute("value");
     var lName = document.getElementById(item.id).getAttribute("data-lName");
+
     animals.taxons.push({english_name: eName, latin_name: lName, color: colors[ind]});
     ind = ind + 1;
     if (ind >= 5){
         ind = 0;
     }
-    // document.getElementById('forSpieces').innerHTML +=
-    //         '<div id="tax'+ ind +'" style="margin-bottom: 5px;" class="col l12 white z-depth-2">' +
-    //             '<div style="height: 75px; margin-top: 7px;" class="col l2 '+ colors[ind] +'"></div>' +
-    //             '<div class="col l9"><p>{{ taxon.english_name }}</p><p>{{ taxon.latin_name }}</p></div><div class="col l1"><i onclick="deleteAnimal(this)"  class="tiny material-icons">delete</i></div> ' +
-    //         '</div>';
-    //     ind = ind + 1;
-    //     if (ind > 5){
-    //         ind = 0;
-    //     }
         document.getElementById('ulfirstSpiece').innerHTML = '';
-    ;
-    // document.getElementById(spiece.id).value = item.getAttribute('value');
-    // document.getElementById('ul'+spiece.id).innerHTML = '';
-    // document.getElementById('ul'+spiece.id).setAttribute('class', '');
-    // document.getElementById(spiece.id).setAttribute('val', item.id);
 }
 
 function deleteAnimal(i){
     console.log(i);
     $(i).parent().parent().remove();
-    //$('#' +i.id).remove();
 }
 
 var globalId1;
@@ -108,9 +90,6 @@ function processing(){
     var id2 = null;
     id1 = document.getElementById("firstSpiece").getAttribute("val");
     id2 = document.getElementById("secondSpiece").getAttribute("val");
-
-    console.log(id1);
-    console.log(id2);
 
     globalId1 = id1;
     globalId2 = id2;
