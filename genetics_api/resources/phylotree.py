@@ -14,7 +14,7 @@ def unfuck_clustal_name(name):
 
 
 def get_tree_bytes(pairs):
-    with tempfile.NamedTemporaryFile(mode='w') as clustal_input,
+    with tempfile.NamedTemporaryFile(mode='w') as clustal_input, \
             tempfile.NamedTemporaryFile(mode='r') as phylogeny_input:
         for name, sequence in pairs:
             clustal_input.write('> %s\n%s\n\n' % (encode_for_clustal(name), sequence))
