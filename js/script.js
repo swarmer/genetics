@@ -35,10 +35,12 @@ function search(val, spiece) {
             document.getElementById('ul'+spiece).innerHTML = '';
             var inn = ''
             var size = jsn.length;
+
             if (size > 6)
                 size = 6;
             for (var i=0; i<size; i++){
-                inn += '<li id="' + jsn[i]['id'] + '" class="collection-item searchItem" value="'+ jsn[i]['english_name'] +'" onclick="selectItem(this,' + spiece + ')">' + jsn[i]['english_name']
+                var lName = jsn[i]['latin_name'];
+                inn += '<li id="' + jsn[i]['id'] + '" class="collection-item searchItem" value="'+ jsn[i]['english_name'] +'" onclick="selectItem(this,' + spiece + ')" data-lName="'+lName+'">' + jsn[i]['english_name']
                     + ' <span class="light"> '+ jsn[i]['latin_name'] + '</span> <span class="thin"> '+ jsn[i]['gene'] +'</span></li>';
             }
             document.getElementById('ul'+spiece).innerHTML = inn;
@@ -68,7 +70,9 @@ function selectItem(item, spiece) {
     console.log(item);
     console.log(spiece);
     document.getElementById(spiece.id).value = '';
-    animals.taxons.push({english_name: 'some 1', latin_name: 'latin 1', color: colors[ind]});
+    var eName = document.getElementById(item.id).getAttribute("value");
+    var lName = document.getElementById(item.id).getAttribute("data-lName");
+    animals.taxons.push({english_name: eName, latin_name: lName, color: colors[ind]});
     ind = ind + 1;
     if (ind >= 5){
         ind = 0;
