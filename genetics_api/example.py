@@ -24,4 +24,4 @@ pairs = [
 ]
 
 
-get_tree_bytes(pairs)
+print(get_tree_bytes(pairs))
