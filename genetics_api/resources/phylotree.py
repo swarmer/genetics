@@ -114,7 +114,7 @@ class PhylotreeResource(object):
                     FROM taxons
                     WHERE id in %(taxon_ids)s;
                 ''',
-                {'taxon_ids': taxon_ids},
+                {'taxon_ids': tuple(taxon_ids)},
             )
             rows = cursor.fetchall()
             if not rows:
