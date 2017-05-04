@@ -69,8 +69,8 @@ def get_tree_desc(phylogeny_input):
 
 def get_tree_bytes(pairs):
     with tempfile.NamedTemporaryFile(mode='w') as clustal_input, \
-            tempname() as phylogeny_input \
-            tempname() as tree_desc_path \
+            tempname() as phylogeny_input, \
+            tempname() as tree_desc_path, \
             tempname() as img_path:
         for name, sequence in pairs:
             clustal_input.write('> %s\n%s\n\n' % (encode_for_clustal(name), sequence))
