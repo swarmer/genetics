@@ -19,7 +19,7 @@ def unfuck_clustal_name(name):
 
 @contextlib.contextmanager
 def tempname():
-    name = '/tmp/' + ''.join(random.choise(string.ascii_letters) for _ in range(20))
+    name = '/tmp/' + ''.join(random.choice(string.ascii_letters) for _ in range(20))
 
     yield name
 
