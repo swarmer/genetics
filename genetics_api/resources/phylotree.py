@@ -20,8 +20,8 @@ def unfuck_clustal_name(name):
 
 
 @contextlib.contextmanager
-def tempname():
-    name = '/tmp/' + ''.join(random.choice(string.ascii_letters) for _ in range(20))
+def tempname(ext=''):
+    name = '/tmp/' + ''.join(random.choice(string.ascii_letters) for _ in range(20)) + ext
 
     yield name
 
@@ -71,7 +71,7 @@ def get_tree_bytes(pairs):
     with tempfile.NamedTemporaryFile(mode='w') as clustal_input, \
             tempname() as phylogeny_input, \
             tempname() as tree_desc_path, \
-            tempname() as img_path:
+            tempname(ext='.png') as img_path:
         for name, sequence in pairs:
             clustal_input.write('> %s\n%s\n\n' % (encode_for_clustal(name), sequence))
         clustal_input.flush()
@@ -84,7 +84,6 @@ def get_tree_bytes(pairs):
         with open(tree_desc_path, 'w') as tree_desc_file:
             tree_desc_file.write(tree_desc)
 
-        import pudb; pu.db
         draw_tree(tree_desc_path, img_path)
 
         with open(img_path, 'rb') as img_file:
