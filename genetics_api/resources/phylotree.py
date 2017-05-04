@@ -52,6 +52,7 @@ def get_tree_desc(phylogeny_input):
             response = requests.get(
                 'http://www.ebi.ac.uk/Tools/services/rest/simple_phylogeny/status/%s' % job_id,
             )
+            print('Status: %s' % response.text)
             if response.text == 'FINISHED':
                 break
 
@@ -60,7 +61,7 @@ def get_tree_desc(phylogeny_input):
         response = requests.get(
             'http://www.ebi.ac.uk/Tools/services/rest/simple_phylogeny/result/%s/tree' % job_id,
         )
-        assert response.status == 200
+        assert response.status_code == 200
         tree_desc = response.text
 
         return tree_desc
