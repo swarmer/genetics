@@ -23,7 +23,7 @@ RUN wget -O /tmp/anaconda3_install https://repo.continuum.io/archive/Anaconda3-4
 RUN bash /tmp/anaconda3_install -b -p /anaconda3
 RUN rm /tmp/anaconda3_install
 RUN /anaconda3/bin/conda upgrade --all -y
-RUN /anaconda3/bin/conda install biopython -y
+RUN /anaconda3/bin/conda install -y biopython gunicorn
 RUN /anaconda3/bin/pip install pygraphviz
 
 # Unpack the application code
@@ -31,10 +31,10 @@ COPY build/genetics-api.zip /tmp/genetics-api.zip
 RUN unzip /tmp/genetics-api.zip -d /
 
 
-RUN pip3 install -Ur /genetics-api/requirements.txt
+RUN /anaconda3/bin/pip install -Ur /genetics-api/requirements.txt
 
 
 # Container settings
 WORKDIR /genetics-api
 EXPOSE 8179
-CMD gunicorn genetics_api.app -b 0.0.0.0:8179
+CMD /anaconda3/bin/python -m gunicorn genetics_api.app -b 0.0.0.0:8179
