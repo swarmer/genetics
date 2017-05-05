@@ -89,7 +89,7 @@
           <div style="padding: 0px;" class="col l12 white z-depth-2">
               <div v-cloak id="speciesTable">
                   <div v-for="taxon in taxons">
-                      <div :id="taxon.id" class="spiecesElement"  style="margin-bottom: 5px; width: 200px; display: inline;">
+                      <div :id="taxon.id" class="spiecesElement"  style="margin: 30px; width: 200px;">
                           <div :class="taxon.color"></div>
                           <div>
                               <h4>{{ taxon.english_name }}</h4>
@@ -98,7 +98,7 @@
                               <img :src="taxon.thumbnail_url" class="responsive-img">
 
                               <p>
-                              <h3>Classification</h3>
+                              <h5>Classification</h5>
                               <h6 v-if="taxon.taxonomy.kingdom">Kingdom: {{ taxon.taxonomy.kingdom }}</h6>
                               <h6 v-if="taxon.taxonomy.phylum">Phylum: {{ taxon.taxonomy.phylum }}</h6>
                               <h6 v-if="taxon.taxonomy.subphylum">Subphylum: {{ taxon.taxonomy.subphylum }}</h6>

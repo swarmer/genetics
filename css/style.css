@@ -40,7 +40,6 @@ html, body {
 }
 
 #speciesTable {
-    width: 200px;
     display: flex !important;
     flex-direction: row !important;
 }
