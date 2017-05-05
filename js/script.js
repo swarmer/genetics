@@ -60,7 +60,23 @@ function clearUl(spiece) {
     }
 }
 
-
+function checkAnimals(){
+    if (animals.taxons.length > 1){
+        $('#speciesInput').show();
+    }
+    if (animals.taxons.length >= 3){
+        $('#treeSign').hide();
+        $('#treeSpinner').show();
+    } else {
+        $('#treeSign').show();
+        $('#treeSpinner').hide();
+        $('#treeImg').hide();
+    }
+    if (animals.taxons.length >= 5){
+        $('#speciesError').show();
+        $('#speciesInput').hide();
+    }
+}
 
 function selectItem(item, spiece) {
     console.log(item);
@@ -70,16 +86,19 @@ function selectItem(item, spiece) {
     var lName = document.getElementById(item.id).getAttribute("data-lName");
 
     animals.taxons.push({english_name: eName, latin_name: lName, color: colors[ind]});
+
+    checkAnimals();
+
     ind = ind + 1;
     if (ind >= 5){
         ind = 0;
     }
-        document.getElementById('ulfirstSpiece').innerHTML = '';
+    document.getElementById('ulfirstSpiece').innerHTML = '';
 }
 
 function deleteAnimal(i){
-    console.log(i);
     $(i).parent().parent().remove();
+    checkAnimals();
 }
 
 var globalId1;

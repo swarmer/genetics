@@ -17,10 +17,10 @@
                   <p class="medium">GENETIC MARKER</p>
                   <div style="padding-bottom: 10px;">
                       <select class="browser-default">
-                          <option value="" disabled selected>Select genetic marker</option>
+                          <!--<option value="" disabled selected>Select genetic marker</option>-->
                           <option value="1">Vasa</option>
                           <option value="2">Cytochrome B</option>
-                          <option value="3">Cytochrome C</option>
+                          <option value="3" selected>Cytochrome C</option>
                           <option value="4">Nh</option>
                           <option value="5">COII</option>
                       </select>
@@ -29,19 +29,36 @@
               </div>
           </div>
           <div class="row">
-              <div class="col l12 white z-depth-2">
+              <div id="treeId" class="col l12 white z-depth-2">
                   <p>PHYLOGENETIC TREE</p>
-                  <p class="grey-text text-darken-2">Select three or more spieces to get a tree</p>
+                  <p id="treeSign" class="grey-text text-darken-2">Select three or more spieces to get a tree</p>
+                  <div id="treeSpinner" class=" col l12 center" hidden>
+                      <div class="preloader-wrapper active" style="margin-bottom: 10px;">
+                          <div class="spinner-layer spinner-red-only">
+                              <div class="circle-clipper left">
+                                  <div class="circle"></div>
+                              </div><div class="gap-patch">
+                              <div class="circle"></div>
+                          </div><div class="circle-clipper right">
+                              <div class="circle"></div>
+                          </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div id="treeImg" hidden>
+                      <img class="responsive-img" />
+                  </div>
               </div>
           </div>
           <div class="row">
               <div class="col l12 white z-depth-2">
                   <p>SPECIES</p>
-                  <div class="input-field browser-default">
+                  <div id="speciesInput" class="input-field browser-default">
                       <label class="bold" for="firstSpiece">Start input spieces</label>
                       <input oninput="search(this.value, 'firstSpiece')" onblur="clearUl('firstSpiece')"  id="firstSpiece" type="text"/>
                       <ul id="ulfirstSpiece"></ul>
                   </div>
+                  <p id="speciesError" class="grey-text text-darken-2" hidden>Only five animals!</p>
               </div>
           </div>
 
