@@ -101,6 +101,7 @@ def get_tree_bytes(pairs):
 def draw_tree(input_path, output_path):
     tree = Phylo.read(input_path, 'newick')
     Phylo.draw(tree)
+    pylab.axis('off')
     pylab.savefig(output_path)
 
 
