@@ -63,6 +63,7 @@ function clearUl(spiece) {
 function checkAnimals(){
     if (animals.taxons.length > 1){
         $('#speciesInput').show();
+        $('#speciesError').hide();
     }
     if (animals.taxons.length >= 3){
         $('#treeSign').hide();
@@ -79,16 +80,11 @@ function checkAnimals(){
 }
 
 function selectItem(item, spiece) {
-    console.log(item);
-    console.log(spiece);
     document.getElementById(spiece.id).value = '';
     var eName = document.getElementById(item.id).getAttribute("value");
     var lName = document.getElementById(item.id).getAttribute("data-lName");
-
-    animals.taxons.push({english_name: eName, latin_name: lName, color: colors[ind]});
-
+    animals.taxons.push({id: item.id ,english_name: eName, latin_name: lName, color: colors[ind]});
     checkAnimals();
-
     ind = ind + 1;
     if (ind >= 5){
         ind = 0;
@@ -97,7 +93,20 @@ function selectItem(item, spiece) {
 }
 
 function deleteAnimal(i){
+    --ind;
+    console.log(animals.taxons);
     $(i).parent().parent().remove();
+    var deleteId = $(i).parent().parent().attr('id');
+    var deleteInd;
+    for (var i = 0; i < animals.taxons.length; ++i){
+        if (animals.taxons.id == deleteId){
+            deleteInd = i;
+            break;
+        }
+    }
+    animals.taxons.splice(deleteInd, 1);
+
+    console.log(animals.taxons);
     checkAnimals();
 }
 
@@ -152,7 +161,6 @@ function getFactors(id1, id2){
     xhr.onload = function() {
         text = this.responseText;
         jsn = JSON.parse(text);
-        console.log(jsn);
 
         if (factorsApp == null) {
             factorsApp = new Vue({
@@ -162,14 +170,12 @@ function getFactors(id1, id2){
                     selectedFactors: [],
 
                     showFactors: function () {
-                        console.log(factorsApp.selectedFactors);
 
                         clearFactors();
                         factorsApp.selectedFactors.forEach(function(factor) {
                             addFactor(factor);
                         }, this);
 
-                        console.log(factorsApp.selectedFactors);
                     },
 
                     newFactor: function () {
