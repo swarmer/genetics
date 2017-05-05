@@ -38,3 +38,9 @@ html, body {
 [v-cloak] {
   display: none;
 }
+
+#speciesTable {
+    width: 200px;
+    display: flex !important;
+    flex-direction: row !important;
+}

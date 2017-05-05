@@ -86,18 +86,28 @@
       </div>
       <div class="col l9" style="padding: 0px;">
           <div class="col s12" id="map" style="height: 700px;"></div>
-          <div class="col s12">
+          <div style="padding: 0px;" class="col l12 white z-depth-2">
               <div v-cloak id="speciesTable">
                   <div v-for="taxon in taxons">
-                      <div :id="taxon.id"  style="margin-bottom: 5px;" class="col l12 white z-depth-2">
-                          <div style="height: 75px; margin-top: 7px;" :class="taxon.color + ' col l2' "></div>
-                          <div class="col l9">
-                              <p style="margin-bottom: 0px;">{{ taxon.english_name }}</p>
-                              <p class="grey-text accent-2">{{ taxon.latin_name }}</p>
+                      <div :id="taxon.id" class="spiecesElement"  style="margin-bottom: 5px; width: 200px; display: inline;">
+                          <div :class="taxon.color"></div>
+                          <div>
+                              <h4>{{ taxon.english_name }}</h4>
+                              <h5>{{ taxon.latin_name }}</h5>
+
+                              <img :src="taxon.thumbnail_url" class="responsive-img">
+
+                              <p>
+                              <h3>Classification</h3>
+                              <h6 v-if="taxon.taxonomy.kingdom">Kingdom: {{ taxon.taxonomy.kingdom }}</h6>
+                              <h6 v-if="taxon.taxonomy.phylum">Phylum: {{ taxon.taxonomy.phylum }}</h6>
+                              <h6 v-if="taxon.taxonomy.subphylum">Subphylum: {{ taxon.taxonomy.subphylum }}</h6>
+                              <h6 v-if="taxon.taxonomy.class">Class: {{ taxon.taxonomy.class }}</h6>
+                              <h6 v-if="taxon.taxonomy.order">Order: {{ taxon.taxonomy.order }}</h6>
+                              <h6 v-if="taxon.taxonomy.family">Family: {{ taxon.taxonomy.family }}</h6>
+                              <h6 v-if="taxon.taxonomy.genus">Genus: {{ taxon.taxonomy.genus }}</h6>
+                              </p>
                           </div>
-                          <!--<div class="col l1">-->
-                              <!--<i style="padding: 5px;" onclick="deleteAnimal(this)"  class="tiny material-icons">delete</i>-->
-                          <!--</div>-->
                       </div>
                   </div>
               </div>

@@ -37,42 +37,6 @@ var gradient5 = [
     'rgba(60, 21, 243, 1)'
 ];
 
-
-// var gradient1 = [
-//     'rgba(243, 21, 195, 0)',
-//     'rgba(243, 21, 195, 0.5)',
-//     'rgba(243, 21, 195, 1)',
-//     'rgba(243, 21, 195, 1)'
-// ];
-//
-// var gradient2 = [
-//     'rgba(0, 0, 255, 0)',
-//     'rgba(0, 0, 255, 0.5)',
-//     'rgba(0, 0, 255, 1)',
-//     'rgba(0, 0, 255, 1)'
-// ];
-//
-// var gradient3 = [
-//     'rgba(181, 21, 243, 0)',
-//     'rgba(181, 21, 243, 0.5)',
-//     'rgba(181, 21, 243, 1)',
-//     'rgba(181, 21, 243, 1)'
-// ];
-//
-// var gradient4 = [
-//     'rgba(33, 21, 243, 0)',
-//     'rgba(33, 21, 243, 0.5)',
-//     'rgba(33, 21, 243, 1)',
-//     'rgba(33, 21, 243, 1)'
-// ];
-//
-// var gradient5 = [
-//     'rgba(0, 255, 0, 0)',
-//     'rgba(0, 255, 0, 0.5)',
-//     'rgba(0, 255, 0, 1)',
-//     'rgba(0, 255, 0, 1)'
-// ];
-
 var gradients = [gradient1, gradient2, gradient3, gradient4, gradient5];
 
 var colors = ["red", "yellow", "green", "blue", "indigo"];
@@ -85,6 +49,14 @@ animals = new Vue({
     }
 });
 
+taxonomy = new Vue({
+    el: '#speciesTable',
+    data: {
+        taxons: [],
+    }
+});
+
+globalJSON = null;
 
 $(document).ready(function() {
     $('select').material_select();
@@ -113,7 +85,9 @@ function search(val, spiece) {
                 size = 6;
             for (var i=0; i<size; i++){
                 var lName = jsn[i]['latin_name'];
-                inn += '<li id="' + jsn[i]['id'] + '" class="collection-item searchItem" value="'+ jsn[i]['english_name'] +'" onclick="selectItem(this,' + spiece + ')" data-lName="'+lName+'">' + jsn[i]['english_name']
+                globalJSON = jsn;
+                // spiece.setAttribute("data-JSN", jsn);
+                inn += '<li id="' + jsn[i]['id'] + '" class="collection-item searchItem" value="'+ jsn[i]['english_name'] +'" onclick="selectItem(this,' + i + ')" data-lName="'+lName+'">' + jsn[i]['english_name']
                     + ' <span class="light"> '+ jsn[i]['latin_name'] + '</span> <span class="thin"> '+ jsn[i]['gene'] +'</span></li>';
             }
             document.getElementById('ul'+spiece).innerHTML = inn;
@@ -186,11 +160,13 @@ function draw() {
     }
 }
 
-function selectItem(item, spiece) {
-    document.getElementById(spiece.id).value = '';
+function selectItem(item, i) {
+    console.log(globalJSON[i]);
+    document.getElementById('firstSpiece').value = '';
     var eName = document.getElementById(item.id).getAttribute("value");
     var lName = document.getElementById(item.id).getAttribute("data-lName");
     animals.taxons.push({id: item.id ,english_name: eName, latin_name: lName, color: colors[ind]});
+    taxonomy.taxons.push(globalJSON[i]);
     checkAnimals();
 
     draw();
