@@ -20,8 +20,8 @@
                           <!--<option value="" disabled selected>Select genetic marker</option>-->
                           <option value="1">Vasa</option>
                           <option value="2">Cytochrome B</option>
-                          <option value="3" selected>Cytochrome C</option>
-                          <option value="4">Nh</option>
+                          <option value="3">Cytochrome C</option>
+                          <option value="4" selected>EF1alpha</option>
                           <option value="5">COII</option>
                       </select>
                       <!--<label>Genetic marker</label>-->
@@ -46,7 +46,7 @@
                       </div>
                   </div>
                   <div id="treeImg" hidden>
-                      <img class="responsive-img" />
+                      <img id="treeImgImg" width="800" src="" class="responsive-img materialboxed" />
                   </div>
               </div>
           </div>
@@ -79,7 +79,23 @@
 
       </div>
       <div class="col l9" style="padding: 0px;">
-          <div id="map" style="height: 700px;"></div>
+          <div class="col s12" id="map" style="height: 700px;"></div>
+          <div class="col s12">
+              <div v-cloak id="speciesTable">
+                  <div v-for="taxon in taxons">
+                      <div :id="taxon.id"  style="margin-bottom: 5px;" class="col l12 white z-depth-2">
+                          <div style="height: 75px; margin-top: 7px;" :class="taxon.color + ' col l2' "></div>
+                          <div class="col l9">
+                              <p style="margin-bottom: 0px;">{{ taxon.english_name }}</p>
+                              <p class="grey-text accent-2">{{ taxon.latin_name }}</p>
+                          </div>
+                          <div class="col l1">
+                              <i style="padding: 5px;" onclick="deleteAnimal(this)"  class="tiny material-icons">delete</i>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
       </div>
   </div>
 

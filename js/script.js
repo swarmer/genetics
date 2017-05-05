@@ -141,6 +141,21 @@ function checkAnimals(){
     if (animals.taxons.length >= 3){
         $('#treeSign').hide();
         $('#treeSpinner').show();
+
+        var ids = 'http://genetics-api2.swarmer.me/phylotree?taxon_ids=';
+        for (var i = 0; i < animals.taxons.length; ++i) {
+            ids += animals.taxons[i].id + ',';
+        }
+        ids = ids.slice(0, ids.length-1);
+        ids += '&vjk='+Math.random();
+
+        $('#treeImgImg').attr('src', ids);
+
+        $('img').load(function() {
+            $('#treeImg').show();
+            $('#treeSpinner').hide();
+        });
+
         // http://genetics-api2.swarmer.me/phylotree?taxon_ids=17,24
     } else {
         $('#treeSign').show();
@@ -155,11 +170,8 @@ function checkAnimals(){
 
 function draw() {
     clearPopulationLayers();
-    console.log(gradients);
     for (var i = 0; i < animals.taxons.length; ++i){
         addPopulationLayer(map, gradients[i], animals.taxons[i].id);
-        console.log(gradients[i]);
-        console.log(i);
     }
 }
 
