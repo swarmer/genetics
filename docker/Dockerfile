@@ -37,4 +37,4 @@ RUN /anaconda3/bin/pip install -Ur /genetics-api/requirements.txt
 # Container settings
 WORKDIR /genetics-api
 EXPOSE 8179
-CMD /anaconda3/bin/gunicorn genetics_api.app -b 0.0.0.0:8179 -w 10 --graceful-timeout 300 --timeout 300
+CMD /anaconda3/bin/gunicorn genetics_api.app -b 0.0.0.0:8179 -w 5 --graceful-timeout 300 --timeout 300
