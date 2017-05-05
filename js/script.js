@@ -111,6 +111,7 @@ function clearAll() {
     animals.taxons=[];
     ind = 0;
     checkAnimals();
+    document.getElementById('speciesTable').innerHTML = '';
     draw();
 }
 
