@@ -2,7 +2,80 @@ var factorsApp = null;
 var animalApp1 = null;
 var animalApp2 = null;
 
-var colors = ["pink", "purple", "blue", "indigo", "green"];
+var gradient1 = [
+    'rgba(243, 21, 21, 0)',
+    'rgba(243, 21, 21, 0.5)',
+    'rgba(243, 21, 21, 1)',
+    'rgba(243, 21, 21, 1)'
+];
+
+var gradient2 = [
+    'rgba(243, 221, 21, 0)',
+    'rgba(243, 221, 21, 0.5)',
+    'rgba(243, 221, 21, 1)',
+    'rgba(243, 221, 21, 1)'
+];
+
+var gradient3 = [
+    'rgba(49, 243, 21, 0)',
+    'rgba(49, 243, 21, 0.5)',
+    'rgba(49, 243, 21, 1)',
+    'rgba(49, 243, 21, 1)'
+];
+
+var gradient4 = [
+    'rgba(21, 240, 243, 0)',
+    'rgba(21, 240, 243, 0.5)',
+    'rgba(21, 240, 243, 1)',
+    'rgba(21, 240, 243, 1)'
+];
+
+var gradient5 = [
+    'rgba(60, 21, 243, 0)',
+    'rgba(60, 21, 243, 0.5)',
+    'rgba(60, 21, 243, 1)',
+    'rgba(60, 21, 243, 1)'
+];
+
+
+// var gradient1 = [
+//     'rgba(243, 21, 195, 0)',
+//     'rgba(243, 21, 195, 0.5)',
+//     'rgba(243, 21, 195, 1)',
+//     'rgba(243, 21, 195, 1)'
+// ];
+//
+// var gradient2 = [
+//     'rgba(0, 0, 255, 0)',
+//     'rgba(0, 0, 255, 0.5)',
+//     'rgba(0, 0, 255, 1)',
+//     'rgba(0, 0, 255, 1)'
+// ];
+//
+// var gradient3 = [
+//     'rgba(181, 21, 243, 0)',
+//     'rgba(181, 21, 243, 0.5)',
+//     'rgba(181, 21, 243, 1)',
+//     'rgba(181, 21, 243, 1)'
+// ];
+//
+// var gradient4 = [
+//     'rgba(33, 21, 243, 0)',
+//     'rgba(33, 21, 243, 0.5)',
+//     'rgba(33, 21, 243, 1)',
+//     'rgba(33, 21, 243, 1)'
+// ];
+//
+// var gradient5 = [
+//     'rgba(0, 255, 0, 0)',
+//     'rgba(0, 255, 0, 0.5)',
+//     'rgba(0, 255, 0, 1)',
+//     'rgba(0, 255, 0, 1)'
+// ];
+
+var gradients = [gradient1, gradient2, gradient3, gradient4, gradient5];
+
+var colors = ["red", "yellow", "green", "blue", "indigo"];
 var ind = 0;
 
 animals = new Vue({
@@ -68,6 +141,7 @@ function checkAnimals(){
     if (animals.taxons.length >= 3){
         $('#treeSign').hide();
         $('#treeSpinner').show();
+        // http://genetics-api2.swarmer.me/phylotree?taxon_ids=17,24
     } else {
         $('#treeSign').show();
         $('#treeSpinner').hide();
@@ -79,12 +153,25 @@ function checkAnimals(){
     }
 }
 
+function draw() {
+    clearPopulationLayers();
+    console.log(gradients);
+    for (var i = 0; i < animals.taxons.length; ++i){
+        addPopulationLayer(map, gradients[i], animals.taxons[i].id);
+        console.log(gradients[i]);
+        console.log(i);
+    }
+}
+
 function selectItem(item, spiece) {
     document.getElementById(spiece.id).value = '';
     var eName = document.getElementById(item.id).getAttribute("value");
     var lName = document.getElementById(item.id).getAttribute("data-lName");
     animals.taxons.push({id: item.id ,english_name: eName, latin_name: lName, color: colors[ind]});
     checkAnimals();
+
+    draw();
+
     ind = ind + 1;
     if (ind >= 5){
         ind = 0;
@@ -108,6 +195,8 @@ function deleteAnimal(i){
 
     console.log(animals.taxons);
     checkAnimals();
+
+    draw();
 }
 
 var globalId1;
