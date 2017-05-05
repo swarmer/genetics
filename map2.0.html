@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Heatmaps</title>
+    <title>Geogene</title>
       <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
       <link type="text/css" rel="stylesheet" href="css/style.css"  media="screen,projection"/>
@@ -31,7 +31,7 @@
           <div class="row">
               <div id="treeId" class="col l12 white z-depth-2">
                   <p>PHYLOGENETIC TREE</p>
-                  <p id="treeSign" class="grey-text text-darken-2">Select three or more spieces to get a tree</p>
+                  <p id="treeSign" class="grey-text text-darken-2">Select three or more species to get a tree</p>
                   <div id="treeSpinner" class=" col l12 center" hidden>
                       <div class="preloader-wrapper active" style="margin-bottom: 10px;">
                           <div class="spinner-layer spinner-red-only">
@@ -54,7 +54,7 @@
               <div class="col l12 white z-depth-2">
                   <p>SPECIES</p>
                   <div id="speciesInput" class="input-field browser-default">
-                      <label class="bold" for="firstSpiece">Start input spieces</label>
+                      <label class="bold" for="firstSpiece">Start input species</label>
                       <input oninput="search(this.value, 'firstSpiece')" onblur="clearUl('firstSpiece')"  id="firstSpiece" type="text"/>
                       <ul id="ulfirstSpiece"></ul>
                   </div>
