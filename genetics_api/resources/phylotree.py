@@ -42,6 +42,7 @@ def get_tree_desc(phylogeny_input):
     with open(phylogeny_input) as infile:
         data = infile.read()
 
+        print('calling /run/')
         response = requests.post(
             'http://www.ebi.ac.uk/Tools/services/rest/simple_phylogeny/run/',
             headers={
@@ -55,6 +56,7 @@ def get_tree_desc(phylogeny_input):
         assert response.status_code == 200
         job_id = response.text
 
+        print('waiting for the job...')
         while True:
             response = requests.get(
                 'http://www.ebi.ac.uk/Tools/services/rest/simple_phylogeny/status/%s' % job_id,
@@ -70,11 +72,13 @@ def get_tree_desc(phylogeny_input):
         )
         assert response.status_code == 200
         tree_desc = response.text
+        print('job done')
 
         return tree_desc
 
 
 def get_tree_bytes(pairs):
+    print('starting')
     with tempfile.NamedTemporaryFile(mode='w') as clustal_input, \
             tempname() as phylogeny_input, \
             tempname() as tree_desc_path, \
@@ -83,6 +87,7 @@ def get_tree_bytes(pairs):
             clustal_input.write('> %s\n%s\n\n' % (encode_for_clustal(name), sequence))
         clustal_input.flush()
 
+        print('running clustalo')
         subprocess.check_call([
             '/clustalo', '-i', clustal_input.name, '--outfmt=clu', '-o', phylogeny_input
         ])
@@ -91,7 +96,9 @@ def get_tree_bytes(pairs):
         with open(tree_desc_path, 'w') as tree_desc_file:
             tree_desc_file.write(tree_desc)
 
+        print('drawing tree')
         draw_tree(tree_desc_path, img_path)
+        print('done')
 
         with open(img_path, 'rb') as img_file:
             img_bytes = img_file.read()
