@@ -133,8 +133,19 @@ function clearUl(spiece) {
     }
 }
 
+function clearAll() {
+    animals.taxons=[];
+    ind = 0;
+    checkAnimals();
+    draw();
+}
+
 function checkAnimals(){
-    if (animals.taxons.length > 1){
+    if (animals.taxons.length == 0){
+        $('#delete').hide();
+    }
+    if (animals.taxons.length >= 1){
+        $('#delete').show();
         $('#speciesInput').show();
         $('#speciesError').hide();
     }
